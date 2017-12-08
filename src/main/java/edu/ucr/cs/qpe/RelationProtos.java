@@ -66,25 +66,29 @@ public final class RelationProtos {
     edu.ucr.cs.qpe.RelationProtos.RelationOrBuilder getRelationsOrBuilder(
         int index);
 
-    // optional int64 rows = 3;
+    // optional double rowCount = 3;
     /**
-     * <code>optional int64 rows = 3;</code>
+     * <code>optional double rowCount = 3;</code>
      */
-    boolean hasRows();
+    boolean hasRowCount();
     /**
-     * <code>optional int64 rows = 3;</code>
+     * <code>optional double rowCount = 3;</code>
      */
-    long getRows();
+    double getRowCount();
 
-    // optional int64 width = 4;
+    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
     /**
-     * <code>optional int64 width = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
      */
-    boolean hasWidth();
+    boolean hasCumulativeCost();
     /**
-     * <code>optional int64 width = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
      */
-    long getWidth();
+    edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost();
+    /**
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     */
+    edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder();
 
     // optional int64 result = 5;
     /**
@@ -166,14 +170,22 @@ public final class RelationProtos {
               relations_.add(input.readMessage(edu.ucr.cs.qpe.RelationProtos.Relation.PARSER, extensionRegistry));
               break;
             }
-            case 24: {
+            case 25: {
               bitField0_ |= 0x00000002;
-              rows_ = input.readInt64();
+              rowCount_ = input.readDouble();
               break;
             }
-            case 32: {
+            case 34: {
+              edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = cumulativeCost_.toBuilder();
+              }
+              cumulativeCost_ = input.readMessage(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(cumulativeCost_);
+                cumulativeCost_ = subBuilder.buildPartial();
+              }
               bitField0_ |= 0x00000004;
-              width_ = input.readInt64();
               break;
             }
             case 40: {
@@ -225,112 +237,1306 @@ public final class RelationProtos {
 
     /**
      * Protobuf enum {@code qpe.proto.Relation.OpCode}
+     *
+     * <pre>
+     *JOIN = 0;
+     *MAPJOIN = 1;
+     *EXTRACT = 2;
+     *FILTER = 3;
+     *FORWARD = 4;
+     *GROUPBY = 5;
+     *LIMIT = 6;
+     *SCRIPT = 7;
+     *SELECT = 8;
+     *TABLESCAN = 9;
+     *FILESINK = 10;
+     *REDUCESINK = 11;
+     *UNION = 12;
+     *UDTF = 13;
+     *LATERALVIEWJOIN = 14;
+     *LATERALVIEWFORWARD = 15;
+     *HASHTABLESINK = 16;
+     *HASHTABLEDUMMY = 17;
+     *PTF = 18;
+     *MUX = 19;
+     *DEMUX = 20;
+     *EVENT = 21;
+     *ORCFILEMERGE = 22;
+     *RCFILEMERGE = 23;
+     *MERGEJOIN = 24;
+     *SPARKPRUNINGSINK = 25;
+     *NONE = 26; 
+     * </pre>
      */
     public enum OpCode
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>JOIN = 0;</code>
-       */
-      JOIN(0, 0),
-      /**
-       * <code>MAPJOIN = 1;</code>
-       */
-      MAPJOIN(1, 1),
-      /**
-       * <code>EXTRACT = 2;</code>
-       */
-      EXTRACT(2, 2),
-      /**
-       * <code>FILTER = 3;</code>
-       */
-      FILTER(3, 3),
-      /**
-       * <code>NONE = 26;</code>
+       * <code>AbstractConverter = 0;</code>
        *
        * <pre>
-       *FORWARD = 4;
-       *GROUPBY = 5;
-       *LIMIT = 6;
-       *SCRIPT = 7;
-       *SELECT = 8;
-       *TABLESCAN = 9;
-       *FILESINK = 10;
-       *REDUCESINK = 11;
-       *UNION = 12;
-       *UDTF = 13;
-       *LATERALVIEWJOIN = 14;
-       *LATERALVIEWFORWARD = 15;
-       *HASHTABLESINK = 16;
-       *HASHTABLEDUMMY = 17;
-       *PTF = 18;
-       *MUX = 19;
-       *DEMUX = 20;
-       *EVENT = 21;
-       *ORCFILEMERGE = 22;
-       *RCFILEMERGE = 23;
-       *MERGEJOIN = 24;
-       *SPARKPRUNINGSINK = 25;
+       * No operator for leaf nodes of graph, so we can handle cases uniformly.
        * </pre>
        */
-      NONE(4, 26),
+      AbstractConverter(0, 0),
+      /**
+       * <code>AbstractRelNode = 1;</code>
+       */
+      AbstractRelNode(1, 1),
+      /**
+       * <code>Aggregate = 2;</code>
+       */
+      Aggregate(2, 2),
+      /**
+       * <code>AltTraitConverter = 3;</code>
+       */
+      AltTraitConverter(3, 3),
+      /**
+       * <code>BindableAggregate = 4;</code>
+       */
+      BindableAggregate(4, 4),
+      /**
+       * <code>BindableFilter = 5;</code>
+       */
+      BindableFilter(5, 5),
+      /**
+       * <code>BindableJoin = 6;</code>
+       */
+      BindableJoin(6, 6),
+      /**
+       * <code>BindableProject = 7;</code>
+       */
+      BindableProject(7, 7),
+      /**
+       * <code>BindableRel = 8;</code>
+       */
+      BindableRel(8, 8),
+      /**
+       * <code>BindableSort = 9;</code>
+       */
+      BindableSort(9, 9),
+      /**
+       * <code>BindableTableScan = 10;</code>
+       */
+      BindableTableScan(10, 10),
+      /**
+       * <code>BindableUnion = 11;</code>
+       */
+      BindableUnion(11, 11),
+      /**
+       * <code>BindableValues = 12;</code>
+       */
+      BindableValues(12, 12),
+      /**
+       * <code>BindableWindow = 13;</code>
+       */
+      BindableWindow(13, 13),
+      /**
+       * <code>BiRel = 14;</code>
+       */
+      BiRel(14, 14),
+      /**
+       * <code>BridgeRel = 15;</code>
+       */
+      BridgeRel(15, 15),
+      /**
+       * <code>Calc = 16;</code>
+       */
+      Calc(16, 16),
+      /**
+       * <code>Chi = 17;</code>
+       */
+      Chi(17, 17),
+      /**
+       * <code>Collect = 18;</code>
+       */
+      Collect(18, 18),
+      /**
+       * <code>Converter = 19;</code>
+       */
+      Converter(19, 19),
+      /**
+       * <code>ConverterImpl = 20;</code>
+       */
+      ConverterImpl(20, 20),
+      /**
+       * <code>Correlate = 21;</code>
+       */
+      Correlate(21, 21),
+      /**
+       * <code>Delta = 22;</code>
+       */
+      Delta(22, 22),
+      /**
+       * <code>ElasticsearchFilter = 23;</code>
+       */
+      ElasticsearchFilter(23, 23),
+      /**
+       * <code>ElasticsearchProject = 24;</code>
+       */
+      ElasticsearchProject(24, 24),
+      /**
+       * <code>ElasticsearchRel = 25;</code>
+       */
+      ElasticsearchRel(25, 25),
+      /**
+       * <code>ElasticsearchSort = 26;</code>
+       */
+      ElasticsearchSort(26, 26),
+      /**
+       * <code>ElasticsearchTableScan = 27;</code>
+       */
+      ElasticsearchTableScan(27, 27),
+      /**
+       * <code>ElasticsearchToEnumerableConverter = 28;</code>
+       */
+      ElasticsearchToEnumerableConverter(28, 28),
+      /**
+       * <code>EnumerableAggregate = 29;</code>
+       */
+      EnumerableAggregate(29, 29),
+      /**
+       * <code>EnumerableBindable = 30;</code>
+       */
+      EnumerableBindable(30, 30),
+      /**
+       * <code>EnumerableCalc = 31;</code>
+       */
+      EnumerableCalc(31, 31),
+      /**
+       * <code>EnumerableCollect = 32;</code>
+       */
+      EnumerableCollect(32, 32),
+      /**
+       * <code>EnumerableCorrelate = 33;</code>
+       */
+      EnumerableCorrelate(33, 33),
+      /**
+       * <code>EnumerableFilter = 34;</code>
+       */
+      EnumerableFilter(34, 34),
+      /**
+       * <code>EnumerableInterpretable = 35;</code>
+       */
+      EnumerableInterpretable(35, 35),
+      /**
+       * <code>EnumerableInterpreter = 36;</code>
+       */
+      EnumerableInterpreter(36, 36),
+      /**
+       * <code>EnumerableIntersect = 37;</code>
+       */
+      EnumerableIntersect(37, 37),
+      /**
+       * <code>EnumerableJoin = 38;</code>
+       */
+      EnumerableJoin(38, 38),
+      /**
+       * <code>EnumerableLimit = 39;</code>
+       */
+      EnumerableLimit(39, 39),
+      /**
+       * <code>EnumerableMergeJoin = 40;</code>
+       */
+      EnumerableMergeJoin(40, 40),
+      /**
+       * <code>EnumerableMinus = 41;</code>
+       */
+      EnumerableMinus(41, 41),
+      /**
+       * <code>EnumerableProject = 42;</code>
+       */
+      EnumerableProject(42, 42),
+      /**
+       * <code>EnumerableRel = 43;</code>
+       */
+      EnumerableRel(43, 43),
+      /**
+       * <code>EnumerableSemiJoin = 44;</code>
+       */
+      EnumerableSemiJoin(44, 44),
+      /**
+       * <code>EnumerableSort = 45;</code>
+       */
+      EnumerableSort(45, 45),
+      /**
+       * <code>EnumerableTableFunctionScan = 46;</code>
+       */
+      EnumerableTableFunctionScan(46, 46),
+      /**
+       * <code>EnumerableTableModify = 47;</code>
+       */
+      EnumerableTableModify(47, 47),
+      /**
+       * <code>EnumerableTableScan = 48;</code>
+       */
+      EnumerableTableScan(48, 48),
+      /**
+       * <code>EnumerableThetaJoin = 49;</code>
+       */
+      EnumerableThetaJoin(49, 49),
+      /**
+       * <code>EnumerableUncollect = 50;</code>
+       */
+      EnumerableUncollect(50, 50),
+      /**
+       * <code>EnumerableUnion = 51;</code>
+       */
+      EnumerableUnion(51, 51),
+      /**
+       * <code>EnumerableValues = 52;</code>
+       */
+      EnumerableValues(52, 52),
+      /**
+       * <code>EnumerableWindow = 53;</code>
+       */
+      EnumerableWindow(53, 53),
+      /**
+       * <code>EquiJoin = 54;</code>
+       */
+      EquiJoin(54, 54),
+      /**
+       * <code>Exchange = 55;</code>
+       */
+      Exchange(55, 55),
+      /**
+       * <code>Filter = 56;</code>
+       */
+      Filter(56, 56),
+      /**
+       * <code>FooRel = 57;</code>
+       */
+      FooRel(57, 57),
+      /**
+       * <code>HepRelVertex = 58;</code>
+       */
+      HepRelVertex(58, 58),
+      /**
+       * <code>IntermediateNode = 59;</code>
+       */
+      IntermediateNode(59, 59),
+      /**
+       * <code>InterpretableConverter = 60;</code>
+       */
+      InterpretableConverter(60, 60),
+      /**
+       * <code>InterpretableRel = 61;</code>
+       */
+      InterpretableRel(61, 61),
+      /**
+       * <code>Intersect = 62;</code>
+       */
+      Intersect(62, 62),
+      /**
+       * <code>IterMergedRel = 63;</code>
+       */
+      IterMergedRel(63, 63),
+      /**
+       * <code>IterSingleRel = 64;</code>
+       */
+      IterSingleRel(64, 64),
+      /**
+       * <code>JdbcAggregate = 65;</code>
+       */
+      JdbcAggregate(65, 65),
+      /**
+       * <code>JdbcCalc = 66;</code>
+       */
+      JdbcCalc(66, 66),
+      /**
+       * <code>JdbcFilter = 67;</code>
+       */
+      JdbcFilter(67, 67),
+      /**
+       * <code>JdbcIntersect = 68;</code>
+       */
+      JdbcIntersect(68, 68),
+      /**
+       * <code>JdbcJoin = 69;</code>
+       */
+      JdbcJoin(69, 69),
+      /**
+       * <code>JdbcMinus = 70;</code>
+       */
+      JdbcMinus(70, 70),
+      /**
+       * <code>JdbcProject = 71;</code>
+       */
+      JdbcProject(71, 71),
+      /**
+       * <code>JdbcRel = 72;</code>
+       */
+      JdbcRel(72, 72),
+      /**
+       * <code>JdbcSort = 73;</code>
+       */
+      JdbcSort(73, 73),
+      /**
+       * <code>JdbcTableModify = 74;</code>
+       */
+      JdbcTableModify(74, 74),
+      /**
+       * <code>JdbcTableScan = 75;</code>
+       */
+      JdbcTableScan(75, 75),
+      /**
+       * <code>JdbcToEnumerableConverter = 76;</code>
+       */
+      JdbcToEnumerableConverter(76, 76),
+      /**
+       * <code>JdbcUnion = 77;</code>
+       */
+      JdbcUnion(77, 77),
+      /**
+       * <code>JdbcValues = 78;</code>
+       */
+      JdbcValues(78, 78),
+      /**
+       * <code>Join = 79;</code>
+       */
+      Join(79, 79),
+      /**
+       * <code>LeafRel = 80;</code>
+       */
+      LeafRel(80, 80),
+      /**
+       * <code>LogicalAggregate = 81;</code>
+       */
+      LogicalAggregate(81, 81),
+      /**
+       * <code>LogicalCalc = 82;</code>
+       */
+      LogicalCalc(82, 82),
+      /**
+       * <code>LogicalChi = 83;</code>
+       */
+      LogicalChi(83, 83),
+      /**
+       * <code>LogicalCorrelate = 84;</code>
+       */
+      LogicalCorrelate(84, 84),
+      /**
+       * <code>LogicalDelta = 85;</code>
+       */
+      LogicalDelta(85, 85),
+      /**
+       * <code>LogicalExchange = 86;</code>
+       */
+      LogicalExchange(86, 86),
+      /**
+       * <code>LogicalFilter = 87;</code>
+       */
+      LogicalFilter(87, 87),
+      /**
+       * <code>LogicalIntersect = 88;</code>
+       */
+      LogicalIntersect(88, 88),
+      /**
+       * <code>LogicalJoin = 89;</code>
+       */
+      LogicalJoin(89, 89),
+      /**
+       * <code>LogicalMatch = 90;</code>
+       */
+      LogicalMatch(90, 90),
+      /**
+       * <code>LogicalMinus = 91;</code>
+       */
+      LogicalMinus(91, 91),
+      /**
+       * <code>LogicalProject = 92;</code>
+       */
+      LogicalProject(92, 92),
+      /**
+       * <code>LogicalSort = 93;</code>
+       */
+      LogicalSort(93, 93),
+      /**
+       * <code>LogicalTableFunctionScan = 94;</code>
+       */
+      LogicalTableFunctionScan(94, 94),
+      /**
+       * <code>LogicalTableModify = 95;</code>
+       */
+      LogicalTableModify(95, 95),
+      /**
+       * <code>LogicalTableScan = 96;</code>
+       */
+      LogicalTableScan(96, 96),
+      /**
+       * <code>LogicalUnion = 97;</code>
+       */
+      LogicalUnion(97, 97),
+      /**
+       * <code>LogicalValues = 98;</code>
+       */
+      LogicalValues(98, 98),
+      /**
+       * <code>LogicalWindow = 99;</code>
+       */
+      LogicalWindow(99, 99),
+      /**
+       * <code>Match = 100;</code>
+       */
+      Match(100, 100),
+      /**
+       * <code>Minus = 101;</code>
+       */
+      Minus(101, 101),
+      /**
+       * <code>MockJdbcTableScan = 102;</code>
+       */
+      MockJdbcTableScan(102, 102),
+      /**
+       * <code>MultiJoin = 103;</code>
+       */
+      MultiJoin(103, 103),
+      /**
+       * <code>MyRel = 104;</code>
+       */
+      MyRel(104, 104),
+      /**
+       * <code>NoneConverter = 105;</code>
+       */
+      NoneConverter(105, 105),
+      /**
+       * <code>NoneLeafRel = 106;</code>
+       */
+      NoneLeafRel(106, 106),
+      /**
+       * <code>NoneSingleRel = 107;</code>
+       */
+      NoneSingleRel(107, 107),
+      /**
+       * <code>Phys = 108;</code>
+       */
+      Phys(108, 108),
+      /**
+       * <code>PhysAgg = 109;</code>
+       */
+      PhysAgg(109, 109),
+      /**
+       * <code>PhysicalSort = 110;</code>
+       */
+      PhysicalSort(110, 110),
+      /**
+       * <code>PhysLeafRel = 111;</code>
+       */
+      PhysLeafRel(111, 111),
+      /**
+       * <code>PhysProj = 112;</code>
+       */
+      PhysProj(112, 112),
+      /**
+       * <code>PhysSingleRel = 113;</code>
+       */
+      PhysSingleRel(113, 113),
+      /**
+       * <code>PhysSort = 114;</code>
+       */
+      PhysSort(114, 114),
+      /**
+       * <code>PhysTable = 115;</code>
+       */
+      PhysTable(115, 115),
+      /**
+       * <code>PhysToIteratorConverter = 116;</code>
+       */
+      PhysToIteratorConverter(116, 116),
+      /**
+       * <code>Project = 117;</code>
+       */
+      Project(117, 117),
+      /**
+       * <code>RandomSingleRel = 118;</code>
+       */
+      RandomSingleRel(118, 118),
+      /**
+       * <code>RelSubset = 119;</code>
+       */
+      RelSubset(119, 119),
+      /**
+       * <code>RootSingleRel = 120;</code>
+       */
+      RootSingleRel(120, 120),
+      /**
+       * <code>Sample = 121;</code>
+       */
+      Sample(121, 121),
+      /**
+       * <code>SelfFlatteningRel = 122;</code>
+       */
+      SelfFlatteningRel(122, 122),
+      /**
+       * <code>SemiJoin = 123;</code>
+       */
+      SemiJoin(123, 123),
+      /**
+       * <code>SetOp = 124;</code>
+       */
+      SetOp(124, 124),
+      /**
+       * <code>SingleRel = 125;</code>
+       */
+      SingleRel(125, 125),
+      /**
+       * <code>SingletonLeafRel = 126;</code>
+       */
+      SingletonLeafRel(126, 126),
+      /**
+       * <code>Sort = 127;</code>
+       */
+      Sort(127, 127),
+      /**
+       * <code>SortExchange = 128;</code>
+       */
+      SortExchange(128, 128),
+      /**
+       * <code>StarTableScan = 129;</code>
+       */
+      StarTableScan(129, 129),
+      /**
+       * <code>TableFunctionScan = 130;</code>
+       */
+      TableFunctionScan(130, 130),
+      /**
+       * <code>TableModify = 131;</code>
+       */
+      TableModify(131, 131),
+      /**
+       * <code>TableScan = 132;</code>
+       */
+      TableScan(132, 132),
+      /**
+       * <code>TestLeafRel = 133;</code>
+       */
+      TestLeafRel(133, 133),
+      /**
+       * <code>TestSingleRel = 134;</code>
+       */
+      TestSingleRel(134, 134),
+      /**
+       * <code>Uncollect = 135;</code>
+       */
+      Uncollect(135, 135),
+      /**
+       * <code>Union = 136;</code>
+       */
+      Union(136, 136),
+      /**
+       * <code>Values = 137;</code>
+       */
+      Values(137, 137),
+      /**
+       * <code>Window = 138;</code>
+       */
+      Window(138, 138),
       ;
 
       /**
-       * <code>JOIN = 0;</code>
-       */
-      public static final int JOIN_VALUE = 0;
-      /**
-       * <code>MAPJOIN = 1;</code>
-       */
-      public static final int MAPJOIN_VALUE = 1;
-      /**
-       * <code>EXTRACT = 2;</code>
-       */
-      public static final int EXTRACT_VALUE = 2;
-      /**
-       * <code>FILTER = 3;</code>
-       */
-      public static final int FILTER_VALUE = 3;
-      /**
-       * <code>NONE = 26;</code>
+       * <code>AbstractConverter = 0;</code>
        *
        * <pre>
-       *FORWARD = 4;
-       *GROUPBY = 5;
-       *LIMIT = 6;
-       *SCRIPT = 7;
-       *SELECT = 8;
-       *TABLESCAN = 9;
-       *FILESINK = 10;
-       *REDUCESINK = 11;
-       *UNION = 12;
-       *UDTF = 13;
-       *LATERALVIEWJOIN = 14;
-       *LATERALVIEWFORWARD = 15;
-       *HASHTABLESINK = 16;
-       *HASHTABLEDUMMY = 17;
-       *PTF = 18;
-       *MUX = 19;
-       *DEMUX = 20;
-       *EVENT = 21;
-       *ORCFILEMERGE = 22;
-       *RCFILEMERGE = 23;
-       *MERGEJOIN = 24;
-       *SPARKPRUNINGSINK = 25;
+       * No operator for leaf nodes of graph, so we can handle cases uniformly.
        * </pre>
        */
-      public static final int NONE_VALUE = 26;
+      public static final int AbstractConverter_VALUE = 0;
+      /**
+       * <code>AbstractRelNode = 1;</code>
+       */
+      public static final int AbstractRelNode_VALUE = 1;
+      /**
+       * <code>Aggregate = 2;</code>
+       */
+      public static final int Aggregate_VALUE = 2;
+      /**
+       * <code>AltTraitConverter = 3;</code>
+       */
+      public static final int AltTraitConverter_VALUE = 3;
+      /**
+       * <code>BindableAggregate = 4;</code>
+       */
+      public static final int BindableAggregate_VALUE = 4;
+      /**
+       * <code>BindableFilter = 5;</code>
+       */
+      public static final int BindableFilter_VALUE = 5;
+      /**
+       * <code>BindableJoin = 6;</code>
+       */
+      public static final int BindableJoin_VALUE = 6;
+      /**
+       * <code>BindableProject = 7;</code>
+       */
+      public static final int BindableProject_VALUE = 7;
+      /**
+       * <code>BindableRel = 8;</code>
+       */
+      public static final int BindableRel_VALUE = 8;
+      /**
+       * <code>BindableSort = 9;</code>
+       */
+      public static final int BindableSort_VALUE = 9;
+      /**
+       * <code>BindableTableScan = 10;</code>
+       */
+      public static final int BindableTableScan_VALUE = 10;
+      /**
+       * <code>BindableUnion = 11;</code>
+       */
+      public static final int BindableUnion_VALUE = 11;
+      /**
+       * <code>BindableValues = 12;</code>
+       */
+      public static final int BindableValues_VALUE = 12;
+      /**
+       * <code>BindableWindow = 13;</code>
+       */
+      public static final int BindableWindow_VALUE = 13;
+      /**
+       * <code>BiRel = 14;</code>
+       */
+      public static final int BiRel_VALUE = 14;
+      /**
+       * <code>BridgeRel = 15;</code>
+       */
+      public static final int BridgeRel_VALUE = 15;
+      /**
+       * <code>Calc = 16;</code>
+       */
+      public static final int Calc_VALUE = 16;
+      /**
+       * <code>Chi = 17;</code>
+       */
+      public static final int Chi_VALUE = 17;
+      /**
+       * <code>Collect = 18;</code>
+       */
+      public static final int Collect_VALUE = 18;
+      /**
+       * <code>Converter = 19;</code>
+       */
+      public static final int Converter_VALUE = 19;
+      /**
+       * <code>ConverterImpl = 20;</code>
+       */
+      public static final int ConverterImpl_VALUE = 20;
+      /**
+       * <code>Correlate = 21;</code>
+       */
+      public static final int Correlate_VALUE = 21;
+      /**
+       * <code>Delta = 22;</code>
+       */
+      public static final int Delta_VALUE = 22;
+      /**
+       * <code>ElasticsearchFilter = 23;</code>
+       */
+      public static final int ElasticsearchFilter_VALUE = 23;
+      /**
+       * <code>ElasticsearchProject = 24;</code>
+       */
+      public static final int ElasticsearchProject_VALUE = 24;
+      /**
+       * <code>ElasticsearchRel = 25;</code>
+       */
+      public static final int ElasticsearchRel_VALUE = 25;
+      /**
+       * <code>ElasticsearchSort = 26;</code>
+       */
+      public static final int ElasticsearchSort_VALUE = 26;
+      /**
+       * <code>ElasticsearchTableScan = 27;</code>
+       */
+      public static final int ElasticsearchTableScan_VALUE = 27;
+      /**
+       * <code>ElasticsearchToEnumerableConverter = 28;</code>
+       */
+      public static final int ElasticsearchToEnumerableConverter_VALUE = 28;
+      /**
+       * <code>EnumerableAggregate = 29;</code>
+       */
+      public static final int EnumerableAggregate_VALUE = 29;
+      /**
+       * <code>EnumerableBindable = 30;</code>
+       */
+      public static final int EnumerableBindable_VALUE = 30;
+      /**
+       * <code>EnumerableCalc = 31;</code>
+       */
+      public static final int EnumerableCalc_VALUE = 31;
+      /**
+       * <code>EnumerableCollect = 32;</code>
+       */
+      public static final int EnumerableCollect_VALUE = 32;
+      /**
+       * <code>EnumerableCorrelate = 33;</code>
+       */
+      public static final int EnumerableCorrelate_VALUE = 33;
+      /**
+       * <code>EnumerableFilter = 34;</code>
+       */
+      public static final int EnumerableFilter_VALUE = 34;
+      /**
+       * <code>EnumerableInterpretable = 35;</code>
+       */
+      public static final int EnumerableInterpretable_VALUE = 35;
+      /**
+       * <code>EnumerableInterpreter = 36;</code>
+       */
+      public static final int EnumerableInterpreter_VALUE = 36;
+      /**
+       * <code>EnumerableIntersect = 37;</code>
+       */
+      public static final int EnumerableIntersect_VALUE = 37;
+      /**
+       * <code>EnumerableJoin = 38;</code>
+       */
+      public static final int EnumerableJoin_VALUE = 38;
+      /**
+       * <code>EnumerableLimit = 39;</code>
+       */
+      public static final int EnumerableLimit_VALUE = 39;
+      /**
+       * <code>EnumerableMergeJoin = 40;</code>
+       */
+      public static final int EnumerableMergeJoin_VALUE = 40;
+      /**
+       * <code>EnumerableMinus = 41;</code>
+       */
+      public static final int EnumerableMinus_VALUE = 41;
+      /**
+       * <code>EnumerableProject = 42;</code>
+       */
+      public static final int EnumerableProject_VALUE = 42;
+      /**
+       * <code>EnumerableRel = 43;</code>
+       */
+      public static final int EnumerableRel_VALUE = 43;
+      /**
+       * <code>EnumerableSemiJoin = 44;</code>
+       */
+      public static final int EnumerableSemiJoin_VALUE = 44;
+      /**
+       * <code>EnumerableSort = 45;</code>
+       */
+      public static final int EnumerableSort_VALUE = 45;
+      /**
+       * <code>EnumerableTableFunctionScan = 46;</code>
+       */
+      public static final int EnumerableTableFunctionScan_VALUE = 46;
+      /**
+       * <code>EnumerableTableModify = 47;</code>
+       */
+      public static final int EnumerableTableModify_VALUE = 47;
+      /**
+       * <code>EnumerableTableScan = 48;</code>
+       */
+      public static final int EnumerableTableScan_VALUE = 48;
+      /**
+       * <code>EnumerableThetaJoin = 49;</code>
+       */
+      public static final int EnumerableThetaJoin_VALUE = 49;
+      /**
+       * <code>EnumerableUncollect = 50;</code>
+       */
+      public static final int EnumerableUncollect_VALUE = 50;
+      /**
+       * <code>EnumerableUnion = 51;</code>
+       */
+      public static final int EnumerableUnion_VALUE = 51;
+      /**
+       * <code>EnumerableValues = 52;</code>
+       */
+      public static final int EnumerableValues_VALUE = 52;
+      /**
+       * <code>EnumerableWindow = 53;</code>
+       */
+      public static final int EnumerableWindow_VALUE = 53;
+      /**
+       * <code>EquiJoin = 54;</code>
+       */
+      public static final int EquiJoin_VALUE = 54;
+      /**
+       * <code>Exchange = 55;</code>
+       */
+      public static final int Exchange_VALUE = 55;
+      /**
+       * <code>Filter = 56;</code>
+       */
+      public static final int Filter_VALUE = 56;
+      /**
+       * <code>FooRel = 57;</code>
+       */
+      public static final int FooRel_VALUE = 57;
+      /**
+       * <code>HepRelVertex = 58;</code>
+       */
+      public static final int HepRelVertex_VALUE = 58;
+      /**
+       * <code>IntermediateNode = 59;</code>
+       */
+      public static final int IntermediateNode_VALUE = 59;
+      /**
+       * <code>InterpretableConverter = 60;</code>
+       */
+      public static final int InterpretableConverter_VALUE = 60;
+      /**
+       * <code>InterpretableRel = 61;</code>
+       */
+      public static final int InterpretableRel_VALUE = 61;
+      /**
+       * <code>Intersect = 62;</code>
+       */
+      public static final int Intersect_VALUE = 62;
+      /**
+       * <code>IterMergedRel = 63;</code>
+       */
+      public static final int IterMergedRel_VALUE = 63;
+      /**
+       * <code>IterSingleRel = 64;</code>
+       */
+      public static final int IterSingleRel_VALUE = 64;
+      /**
+       * <code>JdbcAggregate = 65;</code>
+       */
+      public static final int JdbcAggregate_VALUE = 65;
+      /**
+       * <code>JdbcCalc = 66;</code>
+       */
+      public static final int JdbcCalc_VALUE = 66;
+      /**
+       * <code>JdbcFilter = 67;</code>
+       */
+      public static final int JdbcFilter_VALUE = 67;
+      /**
+       * <code>JdbcIntersect = 68;</code>
+       */
+      public static final int JdbcIntersect_VALUE = 68;
+      /**
+       * <code>JdbcJoin = 69;</code>
+       */
+      public static final int JdbcJoin_VALUE = 69;
+      /**
+       * <code>JdbcMinus = 70;</code>
+       */
+      public static final int JdbcMinus_VALUE = 70;
+      /**
+       * <code>JdbcProject = 71;</code>
+       */
+      public static final int JdbcProject_VALUE = 71;
+      /**
+       * <code>JdbcRel = 72;</code>
+       */
+      public static final int JdbcRel_VALUE = 72;
+      /**
+       * <code>JdbcSort = 73;</code>
+       */
+      public static final int JdbcSort_VALUE = 73;
+      /**
+       * <code>JdbcTableModify = 74;</code>
+       */
+      public static final int JdbcTableModify_VALUE = 74;
+      /**
+       * <code>JdbcTableScan = 75;</code>
+       */
+      public static final int JdbcTableScan_VALUE = 75;
+      /**
+       * <code>JdbcToEnumerableConverter = 76;</code>
+       */
+      public static final int JdbcToEnumerableConverter_VALUE = 76;
+      /**
+       * <code>JdbcUnion = 77;</code>
+       */
+      public static final int JdbcUnion_VALUE = 77;
+      /**
+       * <code>JdbcValues = 78;</code>
+       */
+      public static final int JdbcValues_VALUE = 78;
+      /**
+       * <code>Join = 79;</code>
+       */
+      public static final int Join_VALUE = 79;
+      /**
+       * <code>LeafRel = 80;</code>
+       */
+      public static final int LeafRel_VALUE = 80;
+      /**
+       * <code>LogicalAggregate = 81;</code>
+       */
+      public static final int LogicalAggregate_VALUE = 81;
+      /**
+       * <code>LogicalCalc = 82;</code>
+       */
+      public static final int LogicalCalc_VALUE = 82;
+      /**
+       * <code>LogicalChi = 83;</code>
+       */
+      public static final int LogicalChi_VALUE = 83;
+      /**
+       * <code>LogicalCorrelate = 84;</code>
+       */
+      public static final int LogicalCorrelate_VALUE = 84;
+      /**
+       * <code>LogicalDelta = 85;</code>
+       */
+      public static final int LogicalDelta_VALUE = 85;
+      /**
+       * <code>LogicalExchange = 86;</code>
+       */
+      public static final int LogicalExchange_VALUE = 86;
+      /**
+       * <code>LogicalFilter = 87;</code>
+       */
+      public static final int LogicalFilter_VALUE = 87;
+      /**
+       * <code>LogicalIntersect = 88;</code>
+       */
+      public static final int LogicalIntersect_VALUE = 88;
+      /**
+       * <code>LogicalJoin = 89;</code>
+       */
+      public static final int LogicalJoin_VALUE = 89;
+      /**
+       * <code>LogicalMatch = 90;</code>
+       */
+      public static final int LogicalMatch_VALUE = 90;
+      /**
+       * <code>LogicalMinus = 91;</code>
+       */
+      public static final int LogicalMinus_VALUE = 91;
+      /**
+       * <code>LogicalProject = 92;</code>
+       */
+      public static final int LogicalProject_VALUE = 92;
+      /**
+       * <code>LogicalSort = 93;</code>
+       */
+      public static final int LogicalSort_VALUE = 93;
+      /**
+       * <code>LogicalTableFunctionScan = 94;</code>
+       */
+      public static final int LogicalTableFunctionScan_VALUE = 94;
+      /**
+       * <code>LogicalTableModify = 95;</code>
+       */
+      public static final int LogicalTableModify_VALUE = 95;
+      /**
+       * <code>LogicalTableScan = 96;</code>
+       */
+      public static final int LogicalTableScan_VALUE = 96;
+      /**
+       * <code>LogicalUnion = 97;</code>
+       */
+      public static final int LogicalUnion_VALUE = 97;
+      /**
+       * <code>LogicalValues = 98;</code>
+       */
+      public static final int LogicalValues_VALUE = 98;
+      /**
+       * <code>LogicalWindow = 99;</code>
+       */
+      public static final int LogicalWindow_VALUE = 99;
+      /**
+       * <code>Match = 100;</code>
+       */
+      public static final int Match_VALUE = 100;
+      /**
+       * <code>Minus = 101;</code>
+       */
+      public static final int Minus_VALUE = 101;
+      /**
+       * <code>MockJdbcTableScan = 102;</code>
+       */
+      public static final int MockJdbcTableScan_VALUE = 102;
+      /**
+       * <code>MultiJoin = 103;</code>
+       */
+      public static final int MultiJoin_VALUE = 103;
+      /**
+       * <code>MyRel = 104;</code>
+       */
+      public static final int MyRel_VALUE = 104;
+      /**
+       * <code>NoneConverter = 105;</code>
+       */
+      public static final int NoneConverter_VALUE = 105;
+      /**
+       * <code>NoneLeafRel = 106;</code>
+       */
+      public static final int NoneLeafRel_VALUE = 106;
+      /**
+       * <code>NoneSingleRel = 107;</code>
+       */
+      public static final int NoneSingleRel_VALUE = 107;
+      /**
+       * <code>Phys = 108;</code>
+       */
+      public static final int Phys_VALUE = 108;
+      /**
+       * <code>PhysAgg = 109;</code>
+       */
+      public static final int PhysAgg_VALUE = 109;
+      /**
+       * <code>PhysicalSort = 110;</code>
+       */
+      public static final int PhysicalSort_VALUE = 110;
+      /**
+       * <code>PhysLeafRel = 111;</code>
+       */
+      public static final int PhysLeafRel_VALUE = 111;
+      /**
+       * <code>PhysProj = 112;</code>
+       */
+      public static final int PhysProj_VALUE = 112;
+      /**
+       * <code>PhysSingleRel = 113;</code>
+       */
+      public static final int PhysSingleRel_VALUE = 113;
+      /**
+       * <code>PhysSort = 114;</code>
+       */
+      public static final int PhysSort_VALUE = 114;
+      /**
+       * <code>PhysTable = 115;</code>
+       */
+      public static final int PhysTable_VALUE = 115;
+      /**
+       * <code>PhysToIteratorConverter = 116;</code>
+       */
+      public static final int PhysToIteratorConverter_VALUE = 116;
+      /**
+       * <code>Project = 117;</code>
+       */
+      public static final int Project_VALUE = 117;
+      /**
+       * <code>RandomSingleRel = 118;</code>
+       */
+      public static final int RandomSingleRel_VALUE = 118;
+      /**
+       * <code>RelSubset = 119;</code>
+       */
+      public static final int RelSubset_VALUE = 119;
+      /**
+       * <code>RootSingleRel = 120;</code>
+       */
+      public static final int RootSingleRel_VALUE = 120;
+      /**
+       * <code>Sample = 121;</code>
+       */
+      public static final int Sample_VALUE = 121;
+      /**
+       * <code>SelfFlatteningRel = 122;</code>
+       */
+      public static final int SelfFlatteningRel_VALUE = 122;
+      /**
+       * <code>SemiJoin = 123;</code>
+       */
+      public static final int SemiJoin_VALUE = 123;
+      /**
+       * <code>SetOp = 124;</code>
+       */
+      public static final int SetOp_VALUE = 124;
+      /**
+       * <code>SingleRel = 125;</code>
+       */
+      public static final int SingleRel_VALUE = 125;
+      /**
+       * <code>SingletonLeafRel = 126;</code>
+       */
+      public static final int SingletonLeafRel_VALUE = 126;
+      /**
+       * <code>Sort = 127;</code>
+       */
+      public static final int Sort_VALUE = 127;
+      /**
+       * <code>SortExchange = 128;</code>
+       */
+      public static final int SortExchange_VALUE = 128;
+      /**
+       * <code>StarTableScan = 129;</code>
+       */
+      public static final int StarTableScan_VALUE = 129;
+      /**
+       * <code>TableFunctionScan = 130;</code>
+       */
+      public static final int TableFunctionScan_VALUE = 130;
+      /**
+       * <code>TableModify = 131;</code>
+       */
+      public static final int TableModify_VALUE = 131;
+      /**
+       * <code>TableScan = 132;</code>
+       */
+      public static final int TableScan_VALUE = 132;
+      /**
+       * <code>TestLeafRel = 133;</code>
+       */
+      public static final int TestLeafRel_VALUE = 133;
+      /**
+       * <code>TestSingleRel = 134;</code>
+       */
+      public static final int TestSingleRel_VALUE = 134;
+      /**
+       * <code>Uncollect = 135;</code>
+       */
+      public static final int Uncollect_VALUE = 135;
+      /**
+       * <code>Union = 136;</code>
+       */
+      public static final int Union_VALUE = 136;
+      /**
+       * <code>Values = 137;</code>
+       */
+      public static final int Values_VALUE = 137;
+      /**
+       * <code>Window = 138;</code>
+       */
+      public static final int Window_VALUE = 138;
 
 
       public final int getNumber() { return value; }
 
       public static OpCode valueOf(int value) {
         switch (value) {
-          case 0: return JOIN;
-          case 1: return MAPJOIN;
-          case 2: return EXTRACT;
-          case 3: return FILTER;
-          case 26: return NONE;
+          case 0: return AbstractConverter;
+          case 1: return AbstractRelNode;
+          case 2: return Aggregate;
+          case 3: return AltTraitConverter;
+          case 4: return BindableAggregate;
+          case 5: return BindableFilter;
+          case 6: return BindableJoin;
+          case 7: return BindableProject;
+          case 8: return BindableRel;
+          case 9: return BindableSort;
+          case 10: return BindableTableScan;
+          case 11: return BindableUnion;
+          case 12: return BindableValues;
+          case 13: return BindableWindow;
+          case 14: return BiRel;
+          case 15: return BridgeRel;
+          case 16: return Calc;
+          case 17: return Chi;
+          case 18: return Collect;
+          case 19: return Converter;
+          case 20: return ConverterImpl;
+          case 21: return Correlate;
+          case 22: return Delta;
+          case 23: return ElasticsearchFilter;
+          case 24: return ElasticsearchProject;
+          case 25: return ElasticsearchRel;
+          case 26: return ElasticsearchSort;
+          case 27: return ElasticsearchTableScan;
+          case 28: return ElasticsearchToEnumerableConverter;
+          case 29: return EnumerableAggregate;
+          case 30: return EnumerableBindable;
+          case 31: return EnumerableCalc;
+          case 32: return EnumerableCollect;
+          case 33: return EnumerableCorrelate;
+          case 34: return EnumerableFilter;
+          case 35: return EnumerableInterpretable;
+          case 36: return EnumerableInterpreter;
+          case 37: return EnumerableIntersect;
+          case 38: return EnumerableJoin;
+          case 39: return EnumerableLimit;
+          case 40: return EnumerableMergeJoin;
+          case 41: return EnumerableMinus;
+          case 42: return EnumerableProject;
+          case 43: return EnumerableRel;
+          case 44: return EnumerableSemiJoin;
+          case 45: return EnumerableSort;
+          case 46: return EnumerableTableFunctionScan;
+          case 47: return EnumerableTableModify;
+          case 48: return EnumerableTableScan;
+          case 49: return EnumerableThetaJoin;
+          case 50: return EnumerableUncollect;
+          case 51: return EnumerableUnion;
+          case 52: return EnumerableValues;
+          case 53: return EnumerableWindow;
+          case 54: return EquiJoin;
+          case 55: return Exchange;
+          case 56: return Filter;
+          case 57: return FooRel;
+          case 58: return HepRelVertex;
+          case 59: return IntermediateNode;
+          case 60: return InterpretableConverter;
+          case 61: return InterpretableRel;
+          case 62: return Intersect;
+          case 63: return IterMergedRel;
+          case 64: return IterSingleRel;
+          case 65: return JdbcAggregate;
+          case 66: return JdbcCalc;
+          case 67: return JdbcFilter;
+          case 68: return JdbcIntersect;
+          case 69: return JdbcJoin;
+          case 70: return JdbcMinus;
+          case 71: return JdbcProject;
+          case 72: return JdbcRel;
+          case 73: return JdbcSort;
+          case 74: return JdbcTableModify;
+          case 75: return JdbcTableScan;
+          case 76: return JdbcToEnumerableConverter;
+          case 77: return JdbcUnion;
+          case 78: return JdbcValues;
+          case 79: return Join;
+          case 80: return LeafRel;
+          case 81: return LogicalAggregate;
+          case 82: return LogicalCalc;
+          case 83: return LogicalChi;
+          case 84: return LogicalCorrelate;
+          case 85: return LogicalDelta;
+          case 86: return LogicalExchange;
+          case 87: return LogicalFilter;
+          case 88: return LogicalIntersect;
+          case 89: return LogicalJoin;
+          case 90: return LogicalMatch;
+          case 91: return LogicalMinus;
+          case 92: return LogicalProject;
+          case 93: return LogicalSort;
+          case 94: return LogicalTableFunctionScan;
+          case 95: return LogicalTableModify;
+          case 96: return LogicalTableScan;
+          case 97: return LogicalUnion;
+          case 98: return LogicalValues;
+          case 99: return LogicalWindow;
+          case 100: return Match;
+          case 101: return Minus;
+          case 102: return MockJdbcTableScan;
+          case 103: return MultiJoin;
+          case 104: return MyRel;
+          case 105: return NoneConverter;
+          case 106: return NoneLeafRel;
+          case 107: return NoneSingleRel;
+          case 108: return Phys;
+          case 109: return PhysAgg;
+          case 110: return PhysicalSort;
+          case 111: return PhysLeafRel;
+          case 112: return PhysProj;
+          case 113: return PhysSingleRel;
+          case 114: return PhysSort;
+          case 115: return PhysTable;
+          case 116: return PhysToIteratorConverter;
+          case 117: return Project;
+          case 118: return RandomSingleRel;
+          case 119: return RelSubset;
+          case 120: return RootSingleRel;
+          case 121: return Sample;
+          case 122: return SelfFlatteningRel;
+          case 123: return SemiJoin;
+          case 124: return SetOp;
+          case 125: return SingleRel;
+          case 126: return SingletonLeafRel;
+          case 127: return Sort;
+          case 128: return SortExchange;
+          case 129: return StarTableScan;
+          case 130: return TableFunctionScan;
+          case 131: return TableModify;
+          case 132: return TableScan;
+          case 133: return TestLeafRel;
+          case 134: return TestSingleRel;
+          case 135: return Uncollect;
+          case 136: return Union;
+          case 137: return Values;
+          case 138: return Window;
           default: return null;
         }
       }
@@ -380,6 +1586,564 @@ public final class RelationProtos {
       }
 
       // @@protoc_insertion_point(enum_scope:qpe.proto.Relation.OpCode)
+    }
+
+    public interface CumulativeCostOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+
+      // optional double rows = 1;
+      /**
+       * <code>optional double rows = 1;</code>
+       */
+      boolean hasRows();
+      /**
+       * <code>optional double rows = 1;</code>
+       */
+      double getRows();
+
+      // optional double cpu = 2;
+      /**
+       * <code>optional double cpu = 2;</code>
+       */
+      boolean hasCpu();
+      /**
+       * <code>optional double cpu = 2;</code>
+       */
+      double getCpu();
+
+      // optional double io = 3;
+      /**
+       * <code>optional double io = 3;</code>
+       */
+      boolean hasIo();
+      /**
+       * <code>optional double io = 3;</code>
+       */
+      double getIo();
+    }
+    /**
+     * Protobuf type {@code qpe.proto.Relation.CumulativeCost}
+     */
+    public static final class CumulativeCost extends
+        com.google.protobuf.GeneratedMessage
+        implements CumulativeCostOrBuilder {
+      // Use CumulativeCost.newBuilder() to construct.
+      private CumulativeCost(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+        super(builder);
+        this.unknownFields = builder.getUnknownFields();
+      }
+      private CumulativeCost(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+      private static final CumulativeCost defaultInstance;
+      public static CumulativeCost getDefaultInstance() {
+        return defaultInstance;
+      }
+
+      public CumulativeCost getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private CumulativeCost(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 9: {
+                bitField0_ |= 0x00000001;
+                rows_ = input.readDouble();
+                break;
+              }
+              case 17: {
+                bitField0_ |= 0x00000002;
+                cpu_ = input.readDouble();
+                break;
+              }
+              case 25: {
+                bitField0_ |= 0x00000004;
+                io_ = input.readDouble();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return edu.ucr.cs.qpe.RelationProtos.internal_static_qpe_proto_Relation_CumulativeCost_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return edu.ucr.cs.qpe.RelationProtos.internal_static_qpe_proto_Relation_CumulativeCost_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.class, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<CumulativeCost> PARSER =
+          new com.google.protobuf.AbstractParser<CumulativeCost>() {
+        public CumulativeCost parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new CumulativeCost(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<CumulativeCost> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // optional double rows = 1;
+      public static final int ROWS_FIELD_NUMBER = 1;
+      private double rows_;
+      /**
+       * <code>optional double rows = 1;</code>
+       */
+      public boolean hasRows() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional double rows = 1;</code>
+       */
+      public double getRows() {
+        return rows_;
+      }
+
+      // optional double cpu = 2;
+      public static final int CPU_FIELD_NUMBER = 2;
+      private double cpu_;
+      /**
+       * <code>optional double cpu = 2;</code>
+       */
+      public boolean hasCpu() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional double cpu = 2;</code>
+       */
+      public double getCpu() {
+        return cpu_;
+      }
+
+      // optional double io = 3;
+      public static final int IO_FIELD_NUMBER = 3;
+      private double io_;
+      /**
+       * <code>optional double io = 3;</code>
+       */
+      public boolean hasIo() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional double io = 3;</code>
+       */
+      public double getIo() {
+        return io_;
+      }
+
+      private void initFields() {
+        rows_ = 0D;
+        cpu_ = 0D;
+        io_ = 0D;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeDouble(1, rows_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeDouble(2, cpu_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeDouble(3, io_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(1, rows_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(2, cpu_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(3, io_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code qpe.proto.Relation.CumulativeCost}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return edu.ucr.cs.qpe.RelationProtos.internal_static_qpe_proto_Relation_CumulativeCost_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return edu.ucr.cs.qpe.RelationProtos.internal_static_qpe_proto_Relation_CumulativeCost_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.class, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder.class);
+        }
+
+        // Construct using edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          rows_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          cpu_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          io_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return edu.ucr.cs.qpe.RelationProtos.internal_static_qpe_proto_Relation_CumulativeCost_descriptor;
+        }
+
+        public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getDefaultInstanceForType() {
+          return edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
+        }
+
+        public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost build() {
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost buildPartial() {
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost result = new edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.rows_ = rows_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.cpu_ = cpu_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.io_ = io_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost) {
+            return mergeFrom((edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost other) {
+          if (other == edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance()) return this;
+          if (other.hasRows()) {
+            setRows(other.getRows());
+          }
+          if (other.hasCpu()) {
+            setCpu(other.getCpu());
+          }
+          if (other.hasIo()) {
+            setIo(other.getIo());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        // optional double rows = 1;
+        private double rows_ ;
+        /**
+         * <code>optional double rows = 1;</code>
+         */
+        public boolean hasRows() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>optional double rows = 1;</code>
+         */
+        public double getRows() {
+          return rows_;
+        }
+        /**
+         * <code>optional double rows = 1;</code>
+         */
+        public Builder setRows(double value) {
+          bitField0_ |= 0x00000001;
+          rows_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional double rows = 1;</code>
+         */
+        public Builder clearRows() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          rows_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        // optional double cpu = 2;
+        private double cpu_ ;
+        /**
+         * <code>optional double cpu = 2;</code>
+         */
+        public boolean hasCpu() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>optional double cpu = 2;</code>
+         */
+        public double getCpu() {
+          return cpu_;
+        }
+        /**
+         * <code>optional double cpu = 2;</code>
+         */
+        public Builder setCpu(double value) {
+          bitField0_ |= 0x00000002;
+          cpu_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional double cpu = 2;</code>
+         */
+        public Builder clearCpu() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          cpu_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        // optional double io = 3;
+        private double io_ ;
+        /**
+         * <code>optional double io = 3;</code>
+         */
+        public boolean hasIo() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>optional double io = 3;</code>
+         */
+        public double getIo() {
+          return io_;
+        }
+        /**
+         * <code>optional double io = 3;</code>
+         */
+        public Builder setIo(double value) {
+          bitField0_ |= 0x00000004;
+          io_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional double io = 3;</code>
+         */
+        public Builder clearIo() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          io_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        // @@protoc_insertion_point(builder_scope:qpe.proto.Relation.CumulativeCost)
+      }
+
+      static {
+        defaultInstance = new CumulativeCost(true);
+        defaultInstance.initFields();
+      }
+
+      // @@protoc_insertion_point(class_scope:qpe.proto.Relation.CumulativeCost)
     }
 
     private int bitField0_;
@@ -455,36 +2219,42 @@ public final class RelationProtos {
       return relations_.get(index);
     }
 
-    // optional int64 rows = 3;
-    public static final int ROWS_FIELD_NUMBER = 3;
-    private long rows_;
+    // optional double rowCount = 3;
+    public static final int ROWCOUNT_FIELD_NUMBER = 3;
+    private double rowCount_;
     /**
-     * <code>optional int64 rows = 3;</code>
+     * <code>optional double rowCount = 3;</code>
      */
-    public boolean hasRows() {
+    public boolean hasRowCount() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional int64 rows = 3;</code>
+     * <code>optional double rowCount = 3;</code>
      */
-    public long getRows() {
-      return rows_;
+    public double getRowCount() {
+      return rowCount_;
     }
 
-    // optional int64 width = 4;
-    public static final int WIDTH_FIELD_NUMBER = 4;
-    private long width_;
+    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
+    public static final int CUMULATIVECOST_FIELD_NUMBER = 4;
+    private edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost cumulativeCost_;
     /**
-     * <code>optional int64 width = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
      */
-    public boolean hasWidth() {
+    public boolean hasCumulativeCost() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional int64 width = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
      */
-    public long getWidth() {
-      return width_;
+    public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost() {
+      return cumulativeCost_;
+    }
+    /**
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     */
+    public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder() {
+      return cumulativeCost_;
     }
 
     // optional int64 result = 5;
@@ -504,10 +2274,10 @@ public final class RelationProtos {
     }
 
     private void initFields() {
-      op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.JOIN;
+      op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.AbstractConverter;
       relations_ = java.util.Collections.emptyList();
-      rows_ = 0L;
-      width_ = 0L;
+      rowCount_ = 0D;
+      cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
       result_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
@@ -529,10 +2299,10 @@ public final class RelationProtos {
         output.writeMessage(2, relations_.get(i));
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt64(3, rows_);
+        output.writeDouble(3, rowCount_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt64(4, width_);
+        output.writeMessage(4, cumulativeCost_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt64(5, result_);
@@ -556,11 +2326,11 @@ public final class RelationProtos {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, rows_);
+          .computeDoubleSize(3, rowCount_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, width_);
+          .computeMessageSize(4, cumulativeCost_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
@@ -675,6 +2445,7 @@ public final class RelationProtos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getRelationsFieldBuilder();
+          getCumulativeCostFieldBuilder();
         }
       }
       private static Builder create() {
@@ -683,7 +2454,7 @@ public final class RelationProtos {
 
       public Builder clear() {
         super.clear();
-        op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.JOIN;
+        op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.AbstractConverter;
         bitField0_ = (bitField0_ & ~0x00000001);
         if (relationsBuilder_ == null) {
           relations_ = java.util.Collections.emptyList();
@@ -691,9 +2462,13 @@ public final class RelationProtos {
         } else {
           relationsBuilder_.clear();
         }
-        rows_ = 0L;
+        rowCount_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
-        width_ = 0L;
+        if (cumulativeCostBuilder_ == null) {
+          cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
+        } else {
+          cumulativeCostBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000008);
         result_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -741,11 +2516,15 @@ public final class RelationProtos {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.rows_ = rows_;
+        result.rowCount_ = rowCount_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.width_ = width_;
+        if (cumulativeCostBuilder_ == null) {
+          result.cumulativeCost_ = cumulativeCost_;
+        } else {
+          result.cumulativeCost_ = cumulativeCostBuilder_.build();
+        }
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000008;
         }
@@ -795,11 +2574,11 @@ public final class RelationProtos {
             }
           }
         }
-        if (other.hasRows()) {
-          setRows(other.getRows());
+        if (other.hasRowCount()) {
+          setRowCount(other.getRowCount());
         }
-        if (other.hasWidth()) {
-          setWidth(other.getWidth());
+        if (other.hasCumulativeCost()) {
+          mergeCumulativeCost(other.getCumulativeCost());
         }
         if (other.hasResult()) {
           setResult(other.getResult());
@@ -832,7 +2611,7 @@ public final class RelationProtos {
       private int bitField0_;
 
       // optional .qpe.proto.Relation.OpCode op = 1;
-      private edu.ucr.cs.qpe.RelationProtos.Relation.OpCode op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.JOIN;
+      private edu.ucr.cs.qpe.RelationProtos.Relation.OpCode op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.AbstractConverter;
       /**
        * <code>optional .qpe.proto.Relation.OpCode op = 1;</code>
        */
@@ -862,7 +2641,7 @@ public final class RelationProtos {
        */
       public Builder clearOp() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.JOIN;
+        op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.AbstractConverter;
         onChanged();
         return this;
       }
@@ -1179,70 +2958,154 @@ public final class RelationProtos {
         return relationsBuilder_;
       }
 
-      // optional int64 rows = 3;
-      private long rows_ ;
+      // optional double rowCount = 3;
+      private double rowCount_ ;
       /**
-       * <code>optional int64 rows = 3;</code>
+       * <code>optional double rowCount = 3;</code>
        */
-      public boolean hasRows() {
+      public boolean hasRowCount() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional int64 rows = 3;</code>
+       * <code>optional double rowCount = 3;</code>
        */
-      public long getRows() {
-        return rows_;
+      public double getRowCount() {
+        return rowCount_;
       }
       /**
-       * <code>optional int64 rows = 3;</code>
+       * <code>optional double rowCount = 3;</code>
        */
-      public Builder setRows(long value) {
+      public Builder setRowCount(double value) {
         bitField0_ |= 0x00000004;
-        rows_ = value;
+        rowCount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 rows = 3;</code>
+       * <code>optional double rowCount = 3;</code>
        */
-      public Builder clearRows() {
+      public Builder clearRowCount() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        rows_ = 0L;
+        rowCount_ = 0D;
         onChanged();
         return this;
       }
 
-      // optional int64 width = 4;
-      private long width_ ;
+      // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
+      private edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder> cumulativeCostBuilder_;
       /**
-       * <code>optional int64 width = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
        */
-      public boolean hasWidth() {
+      public boolean hasCumulativeCost() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int64 width = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
        */
-      public long getWidth() {
-        return width_;
+      public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost() {
+        if (cumulativeCostBuilder_ == null) {
+          return cumulativeCost_;
+        } else {
+          return cumulativeCostBuilder_.getMessage();
+        }
       }
       /**
-       * <code>optional int64 width = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
        */
-      public Builder setWidth(long value) {
+      public Builder setCumulativeCost(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost value) {
+        if (cumulativeCostBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          cumulativeCost_ = value;
+          onChanged();
+        } else {
+          cumulativeCostBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000008;
-        width_ = value;
-        onChanged();
         return this;
       }
       /**
-       * <code>optional int64 width = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
        */
-      public Builder clearWidth() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        width_ = 0L;
-        onChanged();
+      public Builder setCumulativeCost(
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder builderForValue) {
+        if (cumulativeCostBuilder_ == null) {
+          cumulativeCost_ = builderForValue.build();
+          onChanged();
+        } else {
+          cumulativeCostBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
         return this;
+      }
+      /**
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       */
+      public Builder mergeCumulativeCost(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost value) {
+        if (cumulativeCostBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              cumulativeCost_ != edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance()) {
+            cumulativeCost_ =
+              edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.newBuilder(cumulativeCost_).mergeFrom(value).buildPartial();
+          } else {
+            cumulativeCost_ = value;
+          }
+          onChanged();
+        } else {
+          cumulativeCostBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       */
+      public Builder clearCumulativeCost() {
+        if (cumulativeCostBuilder_ == null) {
+          cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
+          onChanged();
+        } else {
+          cumulativeCostBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       */
+      public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder getCumulativeCostBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getCumulativeCostFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       */
+      public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder() {
+        if (cumulativeCostBuilder_ != null) {
+          return cumulativeCostBuilder_.getMessageOrBuilder();
+        } else {
+          return cumulativeCost_;
+        }
+      }
+      /**
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder> 
+          getCumulativeCostFieldBuilder() {
+        if (cumulativeCostBuilder_ == null) {
+          cumulativeCostBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder>(
+                  cumulativeCost_,
+                  getParentForChildren(),
+                  isClean());
+          cumulativeCost_ = null;
+        }
+        return cumulativeCostBuilder_;
       }
 
       // optional int64 result = 5;
@@ -1294,6 +3157,11 @@ public final class RelationProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_qpe_proto_Relation_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_qpe_proto_Relation_CumulativeCost_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_qpe_proto_Relation_CumulativeCost_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1303,13 +3171,80 @@ public final class RelationProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016relation.proto\022\tqpe.proto\"\313\001\n\010Relation" +
+      "\n\016relation.proto\022\tqpe.proto\"\307\026\n\010Relation" +
       "\022&\n\002op\030\001 \001(\0162\032.qpe.proto.Relation.OpCode" +
       "\022&\n\trelations\030\002 \003(\0132\023.qpe.proto.Relation" +
-      "\022\014\n\004rows\030\003 \001(\003\022\r\n\005width\030\004 \001(\003\022\016\n\006result\030" +
-      "\005 \001(\003\"B\n\006OpCode\022\010\n\004JOIN\020\000\022\013\n\007MAPJOIN\020\001\022\013" +
-      "\n\007EXTRACT\020\002\022\n\n\006FILTER\020\003\022\010\n\004NONE\020\032B \n\016edu" +
-      ".ucr.cs.qpeB\016RelationProtos"
+      "\022\020\n\010rowCount\030\003 \001(\001\022:\n\016cumulativeCost\030\004 \001" +
+      "(\0132\".qpe.proto.Relation.CumulativeCost\022\016" +
+      "\n\006result\030\005 \001(\003\0327\n\016CumulativeCost\022\014\n\004rows" +
+      "\030\001 \001(\001\022\013\n\003cpu\030\002 \001(\001\022\n\n\002io\030\003 \001(\001\"\323\024\n\006OpCo" +
+      "de\022\025\n\021AbstractConverter\020\000\022\023\n\017AbstractRel" +
+      "Node\020\001\022\r\n\tAggregate\020\002\022\025\n\021AltTraitConvert" +
+      "er\020\003\022\025\n\021BindableAggregate\020\004\022\022\n\016BindableF",
+      "ilter\020\005\022\020\n\014BindableJoin\020\006\022\023\n\017BindablePro" +
+      "ject\020\007\022\017\n\013BindableRel\020\010\022\020\n\014BindableSort\020" +
+      "\t\022\025\n\021BindableTableScan\020\n\022\021\n\rBindableUnio" +
+      "n\020\013\022\022\n\016BindableValues\020\014\022\022\n\016BindableWindo" +
+      "w\020\r\022\t\n\005BiRel\020\016\022\r\n\tBridgeRel\020\017\022\010\n\004Calc\020\020\022" +
+      "\007\n\003Chi\020\021\022\013\n\007Collect\020\022\022\r\n\tConverter\020\023\022\021\n\r" +
+      "ConverterImpl\020\024\022\r\n\tCorrelate\020\025\022\t\n\005Delta\020" +
+      "\026\022\027\n\023ElasticsearchFilter\020\027\022\030\n\024Elasticsea" +
+      "rchProject\020\030\022\024\n\020ElasticsearchRel\020\031\022\025\n\021El" +
+      "asticsearchSort\020\032\022\032\n\026ElasticsearchTableS",
+      "can\020\033\022&\n\"ElasticsearchToEnumerableConver" +
+      "ter\020\034\022\027\n\023EnumerableAggregate\020\035\022\026\n\022Enumer" +
+      "ableBindable\020\036\022\022\n\016EnumerableCalc\020\037\022\025\n\021En" +
+      "umerableCollect\020 \022\027\n\023EnumerableCorrelate" +
+      "\020!\022\024\n\020EnumerableFilter\020\"\022\033\n\027EnumerableIn" +
+      "terpretable\020#\022\031\n\025EnumerableInterpreter\020$" +
+      "\022\027\n\023EnumerableIntersect\020%\022\022\n\016EnumerableJ" +
+      "oin\020&\022\023\n\017EnumerableLimit\020\'\022\027\n\023Enumerable" +
+      "MergeJoin\020(\022\023\n\017EnumerableMinus\020)\022\025\n\021Enum" +
+      "erableProject\020*\022\021\n\rEnumerableRel\020+\022\026\n\022En",
+      "umerableSemiJoin\020,\022\022\n\016EnumerableSort\020-\022\037" +
+      "\n\033EnumerableTableFunctionScan\020.\022\031\n\025Enume" +
+      "rableTableModify\020/\022\027\n\023EnumerableTableSca" +
+      "n\0200\022\027\n\023EnumerableThetaJoin\0201\022\027\n\023Enumerab" +
+      "leUncollect\0202\022\023\n\017EnumerableUnion\0203\022\024\n\020En" +
+      "umerableValues\0204\022\024\n\020EnumerableWindow\0205\022\014" +
+      "\n\010EquiJoin\0206\022\014\n\010Exchange\0207\022\n\n\006Filter\0208\022\n" +
+      "\n\006FooRel\0209\022\020\n\014HepRelVertex\020:\022\024\n\020Intermed" +
+      "iateNode\020;\022\032\n\026InterpretableConverter\020<\022\024" +
+      "\n\020InterpretableRel\020=\022\r\n\tIntersect\020>\022\021\n\rI",
+      "terMergedRel\020?\022\021\n\rIterSingleRel\020@\022\021\n\rJdb" +
+      "cAggregate\020A\022\014\n\010JdbcCalc\020B\022\016\n\nJdbcFilter" +
+      "\020C\022\021\n\rJdbcIntersect\020D\022\014\n\010JdbcJoin\020E\022\r\n\tJ" +
+      "dbcMinus\020F\022\017\n\013JdbcProject\020G\022\013\n\007JdbcRel\020H" +
+      "\022\014\n\010JdbcSort\020I\022\023\n\017JdbcTableModify\020J\022\021\n\rJ" +
+      "dbcTableScan\020K\022\035\n\031JdbcToEnumerableConver" +
+      "ter\020L\022\r\n\tJdbcUnion\020M\022\016\n\nJdbcValues\020N\022\010\n\004" +
+      "Join\020O\022\013\n\007LeafRel\020P\022\024\n\020LogicalAggregate\020" +
+      "Q\022\017\n\013LogicalCalc\020R\022\016\n\nLogicalChi\020S\022\024\n\020Lo" +
+      "gicalCorrelate\020T\022\020\n\014LogicalDelta\020U\022\023\n\017Lo",
+      "gicalExchange\020V\022\021\n\rLogicalFilter\020W\022\024\n\020Lo" +
+      "gicalIntersect\020X\022\017\n\013LogicalJoin\020Y\022\020\n\014Log" +
+      "icalMatch\020Z\022\020\n\014LogicalMinus\020[\022\022\n\016Logical" +
+      "Project\020\\\022\017\n\013LogicalSort\020]\022\034\n\030LogicalTab" +
+      "leFunctionScan\020^\022\026\n\022LogicalTableModify\020_" +
+      "\022\024\n\020LogicalTableScan\020`\022\020\n\014LogicalUnion\020a" +
+      "\022\021\n\rLogicalValues\020b\022\021\n\rLogicalWindow\020c\022\t" +
+      "\n\005Match\020d\022\t\n\005Minus\020e\022\025\n\021MockJdbcTableSca" +
+      "n\020f\022\r\n\tMultiJoin\020g\022\t\n\005MyRel\020h\022\021\n\rNoneCon" +
+      "verter\020i\022\017\n\013NoneLeafRel\020j\022\021\n\rNoneSingleR",
+      "el\020k\022\010\n\004Phys\020l\022\013\n\007PhysAgg\020m\022\020\n\014PhysicalS" +
+      "ort\020n\022\017\n\013PhysLeafRel\020o\022\014\n\010PhysProj\020p\022\021\n\r" +
+      "PhysSingleRel\020q\022\014\n\010PhysSort\020r\022\r\n\tPhysTab" +
+      "le\020s\022\033\n\027PhysToIteratorConverter\020t\022\013\n\007Pro" +
+      "ject\020u\022\023\n\017RandomSingleRel\020v\022\r\n\tRelSubset" +
+      "\020w\022\021\n\rRootSingleRel\020x\022\n\n\006Sample\020y\022\025\n\021Sel" +
+      "fFlatteningRel\020z\022\014\n\010SemiJoin\020{\022\t\n\005SetOp\020" +
+      "|\022\r\n\tSingleRel\020}\022\024\n\020SingletonLeafRel\020~\022\010" +
+      "\n\004Sort\020\177\022\021\n\014SortExchange\020\200\001\022\022\n\rStarTable" +
+      "Scan\020\201\001\022\026\n\021TableFunctionScan\020\202\001\022\020\n\013Table",
+      "Modify\020\203\001\022\016\n\tTableScan\020\204\001\022\020\n\013TestLeafRel" +
+      "\020\205\001\022\022\n\rTestSingleRel\020\206\001\022\016\n\tUncollect\020\207\001\022" +
+      "\n\n\005Union\020\210\001\022\013\n\006Values\020\211\001\022\013\n\006Window\020\212\001B \n" +
+      "\016edu.ucr.cs.qpeB\016RelationProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1321,7 +3256,13 @@ public final class RelationProtos {
           internal_static_qpe_proto_Relation_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_qpe_proto_Relation_descriptor,
-              new java.lang.String[] { "Op", "Relations", "Rows", "Width", "Result", });
+              new java.lang.String[] { "Op", "Relations", "RowCount", "CumulativeCost", "Result", });
+          internal_static_qpe_proto_Relation_CumulativeCost_descriptor =
+            internal_static_qpe_proto_Relation_descriptor.getNestedTypes().get(0);
+          internal_static_qpe_proto_Relation_CumulativeCost_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_qpe_proto_Relation_CumulativeCost_descriptor,
+              new java.lang.String[] { "Rows", "Cpu", "Io", });
           return null;
         }
       };

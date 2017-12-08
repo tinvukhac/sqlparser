@@ -1,0 +1,57 @@
+LogicalSort(sort0=[$2], dir0=[ASC]): rowcount = 6.750481272183592E63, cumulative cost = {2.7405853012832397E78 rows, 2.740585301306608E78 cpu, 0.0 io}, id = 257
+  LogicalProject(CA_COUNTY=[$0], D_YEAR=[$2], WEB_Q1_Q2_INCREASE=[/($19, $15)], STORE_Q1_Q2_INCREASE=[/($7, $3)], WEB_Q2_Q3_INCREASE=[/($23, $19)], STORE_Q2_Q3_INCREASE=[/($11, $7)]): rowcount = 6.750481272183592E63, cumulative cost = {2.740585301283233E78 rows, 2.7405853012827966E78 cpu, 0.0 io}, id = 256
+    LogicalFilter(condition=[AND(=(CAST($1):INTEGER, 1), =(CAST($2):INTEGER, 1998), =(CAST($0):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary", CAST($4):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary"), =(CAST($5):INTEGER, 2), =(CAST($6):INTEGER, 1998), =(CAST($4):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary", CAST($8):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary"), =(CAST($9):INTEGER, 3), =(CAST($10):INTEGER, 1998), =(CAST($0):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary", CAST($12):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary"), =(CAST($13):INTEGER, 1), =(CAST($14):INTEGER, 1998), =(CAST($12):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary", CAST($16):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary"), =(CAST($17):INTEGER, 2), =(CAST($18):INTEGER, 1998), =(CAST($12):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary", CAST($20):VARCHAR CHARACTER SET "ISO-8859-1" COLLATE "ISO-8859-1$en_US$primary"), =(CAST($21):INTEGER, 3), =(CAST($22):INTEGER, 1998), >(CASE(>($15, 0), /($19, $15), null), CASE(>($3, 0), /($7, $3), null)), >(CASE(>($19, 0), /($23, $19), null), CASE(>($7, 0), /($11, $7), null)))]): rowcount = 6.750481272183592E63, cumulative cost = {2.7405853012832265E78 rows, 2.7405853012827563E78 cpu, 0.0 io}, id = 255
+      LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.7405853012827563E78, cumulative cost = {2.74058530128322E78 rows, 4.2994109387099664E16 cpu, 0.0 io}, id = 254
+        LogicalJoin(condition=[true], joinType=[inner]): rowcount = 4.635704584596038E65, cumulative cost = {4.635704584596822E65 rows, 4.0130119027285232E16 cpu, 0.0 io}, id = 245
+          LogicalJoin(condition=[true], joinType=[inner]): rowcount = 7.841301996907831E52, cumulative cost = {7.841301996909157E52 rows, 3.72661286674708E16 cpu, 0.0 io}, id = 236
+            LogicalJoin(condition=[true], joinType=[inner]): rowcount = 1.3263575338907994E40, cumulative cost = {1.3263575338908555E40 rows, 3.4402138307656368E16 cpu, 0.0 io}, id = 227
+              LogicalJoin(condition=[true], joinType=[inner]): rowcount = 5.603255237181473E26, cumulative cost = {5.6032552374018946E26 rows, 2.2934758871770912E16 cpu, 0.0 io}, id = 218
+                LogicalAggregate(group=[{0, 1, 2}], STORE_SALES=[SUM($3)]): rowcount = 2.367119607705E13, cumulative cost = {1.1021091911642622E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 209
+                  LogicalProject(CA_COUNTY=[$58], D_QOY=[$33], D_YEAR=[$29], SS_EXT_SALES_PRICE=[$15]): rowcount = 2.367119607705E14, cumulative cost = {1.0994165924976248E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 208
+                    LogicalFilter(condition=[AND(=($0, $23), =($6, $51))]): rowcount = 2.367119607705E14, cumulative cost = {1.0757453964205748E16 rows, 1.0520531592803456E16 cpu, 0.0 io}, id = 207
+                      LogicalJoin(condition=[true], joinType=[inner]): rowcount = 1.05205315898E16, cumulative cost = {1.0520742003435248E16 rows, 3003456.0 cpu, 0.0 io}, id = 206
+                        LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.10410631796E11, cumulative cost = {2.10413585249E11 rows, 2953455.0 cpu, 0.0 io}, id = 204
+                          EnumerableTableScan(table=[[TPCDS, STORE_SALES]]): rowcount = 2880404.0, cumulative cost = {2880404.0 rows, 2880405.0 cpu, 0.0 io}, id = 202
+                          EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 203
+                        EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 205
+                LogicalAggregate(group=[{0, 1, 2}], STORE_SALES=[SUM($3)]): rowcount = 2.367119607705E13, cumulative cost = {1.1021091911642622E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 217
+                  LogicalProject(CA_COUNTY=[$58], D_QOY=[$33], D_YEAR=[$29], SS_EXT_SALES_PRICE=[$15]): rowcount = 2.367119607705E14, cumulative cost = {1.0994165924976248E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 216
+                    LogicalFilter(condition=[AND(=($0, $23), =($6, $51))]): rowcount = 2.367119607705E14, cumulative cost = {1.0757453964205748E16 rows, 1.0520531592803456E16 cpu, 0.0 io}, id = 215
+                      LogicalJoin(condition=[true], joinType=[inner]): rowcount = 1.05205315898E16, cumulative cost = {1.0520742003435248E16 rows, 3003456.0 cpu, 0.0 io}, id = 214
+                        LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.10410631796E11, cumulative cost = {2.10413585249E11 rows, 2953455.0 cpu, 0.0 io}, id = 212
+                          EnumerableTableScan(table=[[TPCDS, STORE_SALES]]): rowcount = 2880404.0, cumulative cost = {2880404.0 rows, 2880405.0 cpu, 0.0 io}, id = 210
+                          EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 211
+                        EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 213
+              LogicalAggregate(group=[{0, 1, 2}], STORE_SALES=[SUM($3)]): rowcount = 2.367119607705E13, cumulative cost = {1.1021091911642622E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 226
+                LogicalProject(CA_COUNTY=[$58], D_QOY=[$33], D_YEAR=[$29], SS_EXT_SALES_PRICE=[$15]): rowcount = 2.367119607705E14, cumulative cost = {1.0994165924976248E16 rows, 1.1467379435885456E16 cpu, 0.0 io}, id = 225
+                  LogicalFilter(condition=[AND(=($0, $23), =($6, $51))]): rowcount = 2.367119607705E14, cumulative cost = {1.0757453964205748E16 rows, 1.0520531592803456E16 cpu, 0.0 io}, id = 224
+                    LogicalJoin(condition=[true], joinType=[inner]): rowcount = 1.05205315898E16, cumulative cost = {1.0520742003435248E16 rows, 3003456.0 cpu, 0.0 io}, id = 223
+                      LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.10410631796E11, cumulative cost = {2.10413585249E11 rows, 2953455.0 cpu, 0.0 io}, id = 221
+                        EnumerableTableScan(table=[[TPCDS, STORE_SALES]]): rowcount = 2880404.0, cumulative cost = {2880404.0 rows, 2880405.0 cpu, 0.0 io}, id = 219
+                        EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 220
+                      EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 222
+            LogicalAggregate(group=[{0, 1, 2}], WEB_SALES=[SUM($3)]): rowcount = 5.9119067043E12, cumulative cost = {2.752529570168292E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 235
+              LogicalProject(CA_COUNTY=[$69], D_QOY=[$44], D_YEAR=[$40], WS_EXT_SALES_PRICE=[$23]): rowcount = 5.9119067043E13, cumulative cost = {2.745804776010249E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 234
+                LogicalFilter(condition=[AND(=($0, $34), =($7, $62))]): rowcount = 5.9119067043E13, cumulative cost = {2.686685708967249E15 rows, 2.627514091642436E15 cpu, 0.0 io}, id = 233
+                  LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.6275140908E15, cumulative cost = {2.627566641924249E15 rows, 842436.0 cpu, 0.0 io}, id = 232
+                    LogicalJoin(condition=[true], joinType=[inner]): rowcount = 5.2550281816E10, cumulative cost = {5.2551074249E10 rows, 792435.0 cpu, 0.0 io}, id = 230
+                      EnumerableTableScan(table=[[TPCDS, WEB_SALES]]): rowcount = 719384.0, cumulative cost = {719384.0 rows, 719385.0 cpu, 0.0 io}, id = 228
+                      EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 229
+                    EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 231
+          LogicalAggregate(group=[{0, 1, 2}], WEB_SALES=[SUM($3)]): rowcount = 5.9119067043E12, cumulative cost = {2.752529570168292E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 244
+            LogicalProject(CA_COUNTY=[$69], D_QOY=[$44], D_YEAR=[$40], WS_EXT_SALES_PRICE=[$23]): rowcount = 5.9119067043E13, cumulative cost = {2.745804776010249E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 243
+              LogicalFilter(condition=[AND(=($0, $34), =($7, $62))]): rowcount = 5.9119067043E13, cumulative cost = {2.686685708967249E15 rows, 2.627514091642436E15 cpu, 0.0 io}, id = 242
+                LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.6275140908E15, cumulative cost = {2.627566641924249E15 rows, 842436.0 cpu, 0.0 io}, id = 241
+                  LogicalJoin(condition=[true], joinType=[inner]): rowcount = 5.2550281816E10, cumulative cost = {5.2551074249E10 rows, 792435.0 cpu, 0.0 io}, id = 239
+                    EnumerableTableScan(table=[[TPCDS, WEB_SALES]]): rowcount = 719384.0, cumulative cost = {719384.0 rows, 719385.0 cpu, 0.0 io}, id = 237
+                    EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 238
+                  EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 240
+        LogicalAggregate(group=[{0, 1, 2}], WEB_SALES=[SUM($3)]): rowcount = 5.9119067043E12, cumulative cost = {2.752529570168292E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 253
+          LogicalProject(CA_COUNTY=[$69], D_QOY=[$44], D_YEAR=[$40], WS_EXT_SALES_PRICE=[$23]): rowcount = 5.9119067043E13, cumulative cost = {2.745804776010249E15 rows, 2.863990359814436E15 cpu, 0.0 io}, id = 252
+            LogicalFilter(condition=[AND(=($0, $34), =($7, $62))]): rowcount = 5.9119067043E13, cumulative cost = {2.686685708967249E15 rows, 2.627514091642436E15 cpu, 0.0 io}, id = 251
+              LogicalJoin(condition=[true], joinType=[inner]): rowcount = 2.6275140908E15, cumulative cost = {2.627566641924249E15 rows, 842436.0 cpu, 0.0 io}, id = 250
+                LogicalJoin(condition=[true], joinType=[inner]): rowcount = 5.2550281816E10, cumulative cost = {5.2551074249E10 rows, 792435.0 cpu, 0.0 io}, id = 248
+                  EnumerableTableScan(table=[[TPCDS, WEB_SALES]]): rowcount = 719384.0, cumulative cost = {719384.0 rows, 719385.0 cpu, 0.0 io}, id = 246
+                  EnumerableTableScan(table=[[TPCDS, DATE_DIM]]): rowcount = 73049.0, cumulative cost = {73049.0 rows, 73050.0 cpu, 0.0 io}, id = 247
+                EnumerableTableScan(table=[[TPCDS, CUSTOMER_ADDRESS]]): rowcount = 50000.0, cumulative cost = {50000.0 rows, 50001.0 cpu, 0.0 io}, id = 249
+
