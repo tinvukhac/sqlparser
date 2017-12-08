@@ -22,6 +22,9 @@ import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Function;
 
+import edu.ucr.cs.qpe.RelationProtos.Relation;
+import edu.ucr.cs.qpe.RelationProtos.Relation.Builder;
+
 public class Main {
 
 	public static void main(String[] args) throws Exception {
@@ -37,15 +40,22 @@ public class Main {
 		SqlNode parse = planner.parse(query);
 		SqlNode validate = planner.validate(parse);
 	    RelNode rel = planner.rel(validate).project();
-	    System.out.println(main.toString(rel, format));
-		
-//		String sql1 = "select * from customer where c_customer_id > 10";
-//		String sql2 = "select dt.d_year ,item.i_brand_id brand_id ,item.i_brand brand ,sum(ss_ext_sales_price) sum_agg from date_dim dt ,store_sales ,item where dt.d_date_sk = store_sales.ss_sold_date_sk and store_sales.ss_item_sk = item.i_item_sk and item.i_manufact_id = 436 and dt.d_moy=12 group by dt.d_year ,item.i_brand ,item.i_brand_id order by dt.d_year ,sum_agg desc ,brand_id limit 100";
-//		String sql3 = "select i_item_id, avg(ss_quantity) agg1, avg(ss_list_price) agg2, avg(ss_coupon_amt) agg3, avg(ss_sales_price) agg4 from store_sales, customer_demographics, date_dim, item, promotion where store_sales.ss_sold_date_sk = date_dim.d_date_sk and store_sales.ss_item_sk = item.i_item_sk and store_sales.ss_cdemo_sk = customer_demographics.cd_demo_sk and store_sales.ss_promo_sk = promotion.p_promo_sk and cd_gender = 'F' and cd_marital_status = 'W' and cd_education_status = 'Primary' and (p_channel_email = 'N' or p_channel_event = 'N') and d_year = 1998 group by i_item_id order by i_item_id limit 100";
-//		SqlNode parse = planner.parse(sql3);
-//		SqlNode validate = planner.validate(parse);
-//	    RelNode rel = planner.rel(validate).project();
-//	    System.out.println(test.toString(rel));
+//	    System.out.println(main.toString(rel, format));
+	    
+	    Builder builder = Relation.newBuilder();
+	    
+	    builder.setWidth(10);
+	    builder.setRows(100);
+	    Relation relation1 = builder.build();
+	    
+	    builder.setWidth(15);
+	    builder.setRows(200);
+	    Relation relation2 = builder.build();
+	    
+	    builder.setResult(1);
+	    builder.addRelations(relation1);
+	    builder.addRelations(relation2);
+	    Relation relation3 = builder.build();
 	}
 
 	private Planner getPlanner() throws Exception {
@@ -77,6 +87,12 @@ public class Main {
 	public String toString(RelNode rel, String format) {
 	    return Util.toLinux(
 	        RelOptUtil.dumpPlan("", rel, format.equals("json")? SqlExplainFormat.JSON: SqlExplainFormat.TEXT,
+	            SqlExplainLevel.ALL_ATTRIBUTES));
+	  }
+	
+	public String toString(RelNode rel) {
+	    return Util.toLinux(
+	        RelOptUtil.dumpPlan("", rel, SqlExplainFormat.JSON,
 	            SqlExplainLevel.ALL_ATTRIBUTES));
 	  }
 }
