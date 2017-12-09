@@ -1,0 +1,80 @@
+{
+  "op": "LogicalSort",
+  "relations": [{
+    "op": "LogicalAggregate",
+    "relations": [{
+      "op": "LogicalProject",
+      "relations": [{
+        "op": "LogicalFilter",
+        "relations": [{
+          "op": "LogicalJoin",
+          "relations": [{
+            "op": "LogicalJoin",
+            "relations": [{
+              "op": "EnumerableTableScan",
+              "rowCount": 73049.0,
+              "cumulativeCost": {
+                "rows": 73049.0,
+                "cpu": 73050.0,
+                "io": 0.0
+              }
+            }, {
+              "op": "EnumerableTableScan",
+              "rowCount": 2880404.0,
+              "cumulativeCost": {
+                "rows": 2880404.0,
+                "cpu": 2880405.0,
+                "io": 0.0
+              }
+            }],
+            "rowCount": 2.10410631796E11,
+            "cumulativeCost": {
+              "rows": 2.10413585249E11,
+              "cpu": 2953455.0,
+              "io": 0.0
+            }
+          }, {
+            "op": "EnumerableTableScan",
+            "rowCount": 12.0,
+            "cumulativeCost": {
+              "rows": 12.0,
+              "cpu": 13.0,
+              "io": 0.0
+            }
+          }],
+          "rowCount": 2.524927581552E12,
+          "cumulativeCost": {
+            "rows": 2.735341166813E12,
+            "cpu": 2953468.0,
+            "io": 0.0
+          }
+        }],
+        "rowCount": 1.2782445881606998E9,
+        "cumulativeCost": {
+          "rows": 2.7366194114011606E12,
+          "cpu": 2.52493053502E12,
+          "io": 0.0
+        }
+      }],
+      "rowCount": 1.2782445881606998E9,
+      "cumulativeCost": {
+        "rows": 2.7378976559893213E12,
+        "cpu": 2.5364347363134463E12,
+        "io": 0.0
+      }
+    }],
+    "rowCount": 1.2782445881606999E8,
+    "cumulativeCost": {
+      "rows": 2.738148511532414E12,
+      "cpu": 2.5364347363134463E12,
+      "io": 0.0
+    }
+  }],
+  "rowCount": 100.0,
+  "cumulativeCost": {
+    "rows": 2.738148511632414E12,
+    "cpu": 2.536434752892059E12,
+    "io": 0.0
+  },
+  "result": "1"
+}

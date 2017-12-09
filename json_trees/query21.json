@@ -1,0 +1,115 @@
+{
+  "op": "LogicalSort",
+  "relations": [{
+    "op": "LogicalProject",
+    "relations": [{
+      "op": "LogicalFilter",
+      "relations": [{
+        "op": "LogicalAggregate",
+        "relations": [{
+          "op": "LogicalProject",
+          "relations": [{
+            "op": "LogicalFilter",
+            "relations": [{
+              "op": "LogicalJoin",
+              "relations": [{
+                "op": "LogicalJoin",
+                "relations": [{
+                  "op": "LogicalJoin",
+                  "relations": [{
+                    "op": "EnumerableTableScan",
+                    "rowCount": 1.1745E7,
+                    "cumulativeCost": {
+                      "rows": 1.1745E7,
+                      "cpu": 1.1745001E7,
+                      "io": 0.0
+                    }
+                  }, {
+                    "op": "EnumerableTableScan",
+                    "rowCount": 5.0,
+                    "cumulativeCost": {
+                      "rows": 5.0,
+                      "cpu": 6.0,
+                      "io": 0.0
+                    }
+                  }],
+                  "rowCount": 5.8725E7,
+                  "cumulativeCost": {
+                    "rows": 7.0470005E7,
+                    "cpu": 1.1745007E7,
+                    "io": 0.0
+                  }
+                }, {
+                  "op": "EnumerableTableScan",
+                  "rowCount": 18000.0,
+                  "cumulativeCost": {
+                    "rows": 18000.0,
+                    "cpu": 18001.0,
+                    "io": 0.0
+                  }
+                }],
+                "rowCount": 1.05705E12,
+                "cumulativeCost": {
+                  "rows": 1.057120488005E12,
+                  "cpu": 1.1763008E7,
+                  "io": 0.0
+                }
+              }, {
+                "op": "EnumerableTableScan",
+                "rowCount": 73049.0,
+                "cumulativeCost": {
+                  "rows": 73049.0,
+                  "cpu": 73050.0,
+                  "io": 0.0
+                }
+              }],
+              "rowCount": 7.721644545E16,
+              "cumulativeCost": {
+                "rows": 7.7217502570561056E16,
+                "cpu": 1.1836058E7,
+                "io": 0.0
+              }
+            }],
+            "rowCount": 1.6287843962109375E13,
+            "cumulativeCost": {
+              "rows": 7.7233790414523168E16,
+              "cpu": 7.7216445461836064E16,
+              "io": 0.0
+            }
+          }],
+          "rowCount": 1.6287843962109375E13,
+          "cumulativeCost": {
+            "rows": 7.725007825848528E16,
+            "cpu": 7.7281596837684496E16,
+            "io": 0.0
+          }
+        }],
+        "rowCount": 1.6287843962109375E12,
+        "cumulativeCost": {
+          "rows": 7.7252154958745776E16,
+          "cpu": 7.7281596837684496E16,
+          "io": 0.0
+        }
+      }],
+      "rowCount": 8.589292714393616E7,
+      "cumulativeCost": {
+        "rows": 7.7252155044638704E16,
+        "cpu": 7.7283225622080704E16,
+        "io": 0.0
+      }
+    }],
+    "rowCount": 8.589292714393616E7,
+    "cumulativeCost": {
+      "rows": 7.7252155130531632E16,
+      "cpu": 7.7283225965652416E16,
+      "io": 0.0
+    }
+  }],
+  "rowCount": 100.0,
+  "cumulativeCost": {
+    "rows": 7.7252155130531728E16,
+    "cpu": 7.7283225965659792E16,
+    "io": 0.0
+  },
+  "result": "1"
+}

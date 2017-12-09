@@ -1,0 +1,105 @@
+{
+  "op": "LogicalAggregate",
+  "relations": [{
+    "op": "LogicalProject",
+    "relations": [{
+      "op": "LogicalFilter",
+      "relations": [{
+        "op": "LogicalJoin",
+        "relations": [{
+          "op": "LogicalJoin",
+          "relations": [{
+            "op": "LogicalJoin",
+            "relations": [{
+              "op": "LogicalJoin",
+              "relations": [{
+                "op": "EnumerableTableScan",
+                "rowCount": 2880404.0,
+                "cumulativeCost": {
+                  "rows": 2880404.0,
+                  "cpu": 2880405.0,
+                  "io": 0.0
+                }
+              }, {
+                "op": "EnumerableTableScan",
+                "rowCount": 12.0,
+                "cumulativeCost": {
+                  "rows": 12.0,
+                  "cpu": 13.0,
+                  "io": 0.0
+                }
+              }],
+              "rowCount": 3.4564848E7,
+              "cumulativeCost": {
+                "rows": 3.7445264E7,
+                "cpu": 2880418.0,
+                "io": 0.0
+              }
+            }, {
+              "op": "EnumerableTableScan",
+              "rowCount": 1920800.0,
+              "cumulativeCost": {
+                "rows": 1920800.0,
+                "cpu": 1920801.0,
+                "io": 0.0
+              }
+            }],
+            "rowCount": 6.63921600384E13,
+            "cumulativeCost": {
+              "rows": 6.6392199404464E13,
+              "cpu": 4801219.0,
+              "io": 0.0
+            }
+          }, {
+            "op": "EnumerableTableScan",
+            "rowCount": 50000.0,
+            "cumulativeCost": {
+              "rows": 50000.0,
+              "cpu": 50001.0,
+              "io": 0.0
+            }
+          }],
+          "rowCount": 3.31960800192E18,
+          "cumulativeCost": {
+            "rows": 3.3196743941194547E18,
+            "cpu": 4851220.0,
+            "io": 0.0
+          }
+        }, {
+          "op": "EnumerableTableScan",
+          "rowCount": 73049.0,
+          "cumulativeCost": {
+            "rows": 73049.0,
+            "cpu": 73050.0,
+            "io": 0.0
+          }
+        }],
+        "rowCount": 2.424940449322541E23,
+        "cumulativeCost": {
+          "rows": 2.424973646066482E23,
+          "cpu": 4924270.0,
+          "io": 0.0
+        }
+      }],
+      "rowCount": 5.115108760289735E19,
+      "cumulativeCost": {
+        "rows": 2.4254851569425112E23,
+        "cpu": 2.424940449322541E23,
+        "io": 0.0
+      }
+    }],
+    "rowCount": 5.115108760289735E19,
+    "cumulativeCost": {
+      "rows": 2.4259966678185402E23,
+      "cpu": 2.42545196019857E23,
+      "io": 0.0
+    }
+  }],
+  "rowCount": 1.0,
+  "cumulativeCost": {
+    "rows": 2.4259966678185402E23,
+    "cpu": 2.42545196019857E23,
+    "io": 0.0
+  },
+  "result": "1"
+}

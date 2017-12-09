@@ -1,0 +1,80 @@
+{
+  "op": "LogicalSort",
+  "relations": [{
+    "op": "LogicalAggregate",
+    "relations": [{
+      "op": "LogicalProject",
+      "relations": [{
+        "op": "LogicalFilter",
+        "relations": [{
+          "op": "LogicalJoin",
+          "relations": [{
+            "op": "LogicalJoin",
+            "relations": [{
+              "op": "EnumerableTableScan",
+              "rowCount": 73049.0,
+              "cumulativeCost": {
+                "rows": 73049.0,
+                "cpu": 73050.0,
+                "io": 0.0
+              }
+            }, {
+              "op": "EnumerableTableScan",
+              "rowCount": 2880404.0,
+              "cumulativeCost": {
+                "rows": 2880404.0,
+                "cpu": 2880405.0,
+                "io": 0.0
+              }
+            }],
+            "rowCount": 2.10410631796E11,
+            "cumulativeCost": {
+              "rows": 2.10413585249E11,
+              "cpu": 2953455.0,
+              "io": 0.0
+            }
+          }, {
+            "op": "EnumerableTableScan",
+            "rowCount": 18000.0,
+            "cumulativeCost": {
+              "rows": 18000.0,
+              "cpu": 18001.0,
+              "io": 0.0
+            }
+          }],
+          "rowCount": 3.787391372328E15,
+          "cumulativeCost": {
+            "rows": 3.787601785931249E15,
+            "cpu": 2971456.0,
+            "io": 0.0
+          }
+        }],
+        "rowCount": 2.876050323361575E11,
+        "cumulativeCost": {
+          "rows": 3.787889390963585E15,
+          "cpu": 3.787391375299456E15,
+          "io": 0.0
+        }
+      }],
+      "rowCount": 2.876050323361575E11,
+      "cumulativeCost": {
+        "rows": 3.788176995995921E15,
+        "cpu": 3.7885417954288005E15,
+        "io": 0.0
+      }
+    }],
+    "rowCount": 2.8760503233615746E10,
+    "cumulativeCost": {
+      "rows": 3.7882097110697205E15,
+      "cpu": 3.7885417954288005E15,
+      "io": 0.0
+    }
+  }],
+  "rowCount": 100.0,
+  "cumulativeCost": {
+    "rows": 3.7882097110698205E15,
+    "cpu": 3.788541795436169E15,
+    "io": 0.0
+  },
+  "result": "1"
+}
