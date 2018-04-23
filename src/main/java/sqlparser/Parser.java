@@ -39,7 +39,7 @@ public class Parser {
 		final Holder<SchemaPlus> root = Holder.of(null);
 		CalciteAssert.model(TPCDS_MODEL).doWithConnection(new Function<CalciteConnection, Object>() {
 			public Object apply(CalciteConnection input) {
-				root.set(input.getRootSchema().getSubSchema("TPCDS"));
+				root.set(input.getRootSchema().getSubSchema("TPCDS_5"));
 				return null;
 			}
 		});
@@ -55,7 +55,7 @@ public class Parser {
 
 	private static final String TPCDS_MODEL = "{\n" + "  version: '1.0',\n" + "  defaultSchema: 'TPCDS',\n"
 			+ "   schemas: [\n" + schema("TPCDS", "1.0") + ",\n" + schema("TPCDS_01", "0.01") + ",\n"
-			+ schema("TPCDS_5", "5.0") + "\n" + "   ]\n" + "}";
+			+ schema("TPCDS_5", "5.0") + ",\n" + schema("TPCDS_10", "10.0") + "\n" + "   ]\n" + "}";
 
 	public String toString(RelNode rel, String format) {
 		return Util.toLinux(RelOptUtil.dumpPlan("", rel,
@@ -69,11 +69,13 @@ public class Parser {
 	private Relation getRelation(RelNode rel) {
 		RelMetadataQuery mq = rel.getCluster().getMetadataQuery();
 		double rowCount = mq.getRowCount(rel);
+		double rowSize = mq.getAverageRowSize(rel);
 		RelOptCost optCost = mq.getCumulativeCost(rel);
 
 		Builder builder = Relation.newBuilder();
 		builder.setOp(Relation.OpCode.valueOf(rel.getRelTypeName()));
-		builder.setRowCount(rowCount);
+		builder.setRowCount(Math.round(rowCount));
+		builder.setRowSize(Math.round(rowSize));
 		builder.setCumulativeCost(Relation.CumulativeCost.newBuilder().setRows(optCost.getRows())
 				.setCpu(optCost.getCpu()).setIo(optCost.getIo()).build());
 		List<RelNode> rels = rel.getInputs();

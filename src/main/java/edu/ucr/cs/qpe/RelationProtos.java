@@ -66,39 +66,49 @@ public final class RelationProtos {
     edu.ucr.cs.qpe.RelationProtos.RelationOrBuilder getRelationsOrBuilder(
         int index);
 
-    // optional double rowCount = 3;
+    // optional int64 rowCount = 3;
     /**
-     * <code>optional double rowCount = 3;</code>
+     * <code>optional int64 rowCount = 3;</code>
      */
     boolean hasRowCount();
     /**
-     * <code>optional double rowCount = 3;</code>
+     * <code>optional int64 rowCount = 3;</code>
      */
-    double getRowCount();
+    long getRowCount();
 
-    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
+    // optional int64 rowSize = 4;
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional int64 rowSize = 4;</code>
+     */
+    boolean hasRowSize();
+    /**
+     * <code>optional int64 rowSize = 4;</code>
+     */
+    long getRowSize();
+
+    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;
+    /**
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
      */
     boolean hasCumulativeCost();
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
      */
     edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost();
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
      */
     edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder();
 
-    // optional int64 result = 5;
+    // optional int32 result = 6;
     /**
-     * <code>optional int64 result = 5;</code>
+     * <code>optional int32 result = 6;</code>
      */
     boolean hasResult();
     /**
-     * <code>optional int64 result = 5;</code>
+     * <code>optional int32 result = 6;</code>
      */
-    long getResult();
+    int getResult();
   }
   /**
    * Protobuf type {@code qpe.proto.Relation}
@@ -170,14 +180,19 @@ public final class RelationProtos {
               relations_.add(input.readMessage(edu.ucr.cs.qpe.RelationProtos.Relation.PARSER, extensionRegistry));
               break;
             }
-            case 25: {
+            case 24: {
               bitField0_ |= 0x00000002;
-              rowCount_ = input.readDouble();
+              rowCount_ = input.readInt64();
               break;
             }
-            case 34: {
+            case 32: {
+              bitField0_ |= 0x00000004;
+              rowSize_ = input.readInt64();
+              break;
+            }
+            case 42: {
               edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
                 subBuilder = cumulativeCost_.toBuilder();
               }
               cumulativeCost_ = input.readMessage(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.PARSER, extensionRegistry);
@@ -185,12 +200,12 @@ public final class RelationProtos {
                 subBuilder.mergeFrom(cumulativeCost_);
                 cumulativeCost_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
               break;
             }
-            case 40: {
-              bitField0_ |= 0x00000008;
-              result_ = input.readInt64();
+            case 48: {
+              bitField0_ |= 0x00000010;
+              result_ = input.readInt32();
               break;
             }
           }
@@ -830,6 +845,10 @@ public final class RelationProtos {
        * <code>Window = 138;</code>
        */
       Window(138, 138),
+      /**
+       * <code>NONE = 139;</code>
+       */
+      NONE(139, 139),
       ;
 
       /**
@@ -1392,6 +1411,10 @@ public final class RelationProtos {
        * <code>Window = 138;</code>
        */
       public static final int Window_VALUE = 138;
+      /**
+       * <code>NONE = 139;</code>
+       */
+      public static final int NONE_VALUE = 139;
 
 
       public final int getNumber() { return value; }
@@ -1537,6 +1560,7 @@ public final class RelationProtos {
           case 136: return Union;
           case 137: return Values;
           case 138: return Window;
+          case 139: return NONE;
           default: return null;
         }
       }
@@ -2219,66 +2243,83 @@ public final class RelationProtos {
       return relations_.get(index);
     }
 
-    // optional double rowCount = 3;
+    // optional int64 rowCount = 3;
     public static final int ROWCOUNT_FIELD_NUMBER = 3;
-    private double rowCount_;
+    private long rowCount_;
     /**
-     * <code>optional double rowCount = 3;</code>
+     * <code>optional int64 rowCount = 3;</code>
      */
     public boolean hasRowCount() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional double rowCount = 3;</code>
+     * <code>optional int64 rowCount = 3;</code>
      */
-    public double getRowCount() {
+    public long getRowCount() {
       return rowCount_;
     }
 
-    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
-    public static final int CUMULATIVECOST_FIELD_NUMBER = 4;
-    private edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost cumulativeCost_;
+    // optional int64 rowSize = 4;
+    public static final int ROWSIZE_FIELD_NUMBER = 4;
+    private long rowSize_;
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional int64 rowSize = 4;</code>
      */
-    public boolean hasCumulativeCost() {
+    public boolean hasRowSize() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional int64 rowSize = 4;</code>
+     */
+    public long getRowSize() {
+      return rowSize_;
+    }
+
+    // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;
+    public static final int CUMULATIVECOST_FIELD_NUMBER = 5;
+    private edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost cumulativeCost_;
+    /**
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
+     */
+    public boolean hasCumulativeCost() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
      */
     public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost() {
       return cumulativeCost_;
     }
     /**
-     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+     * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
      */
     public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder() {
       return cumulativeCost_;
     }
 
-    // optional int64 result = 5;
-    public static final int RESULT_FIELD_NUMBER = 5;
-    private long result_;
+    // optional int32 result = 6;
+    public static final int RESULT_FIELD_NUMBER = 6;
+    private int result_;
     /**
-     * <code>optional int64 result = 5;</code>
+     * <code>optional int32 result = 6;</code>
      */
     public boolean hasResult() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional int64 result = 5;</code>
+     * <code>optional int32 result = 6;</code>
      */
-    public long getResult() {
+    public int getResult() {
       return result_;
     }
 
     private void initFields() {
       op_ = edu.ucr.cs.qpe.RelationProtos.Relation.OpCode.AbstractConverter;
       relations_ = java.util.Collections.emptyList();
-      rowCount_ = 0D;
+      rowCount_ = 0L;
+      rowSize_ = 0L;
       cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
-      result_ = 0L;
+      result_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2299,13 +2340,16 @@ public final class RelationProtos {
         output.writeMessage(2, relations_.get(i));
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeDouble(3, rowCount_);
+        output.writeInt64(3, rowCount_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(4, cumulativeCost_);
+        output.writeInt64(4, rowSize_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt64(5, result_);
+        output.writeMessage(5, cumulativeCost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(6, result_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2326,15 +2370,19 @@ public final class RelationProtos {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, rowCount_);
+          .computeInt64Size(3, rowCount_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, cumulativeCost_);
+          .computeInt64Size(4, rowSize_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, result_);
+          .computeMessageSize(5, cumulativeCost_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, result_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2462,16 +2510,18 @@ public final class RelationProtos {
         } else {
           relationsBuilder_.clear();
         }
-        rowCount_ = 0D;
+        rowCount_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
+        rowSize_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (cumulativeCostBuilder_ == null) {
           cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
         } else {
           cumulativeCostBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        result_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
+        result_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -2520,13 +2570,17 @@ public final class RelationProtos {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000004;
         }
+        result.rowSize_ = rowSize_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000008;
+        }
         if (cumulativeCostBuilder_ == null) {
           result.cumulativeCost_ = cumulativeCost_;
         } else {
           result.cumulativeCost_ = cumulativeCostBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000008;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
         }
         result.result_ = result_;
         result.bitField0_ = to_bitField0_;
@@ -2576,6 +2630,9 @@ public final class RelationProtos {
         }
         if (other.hasRowCount()) {
           setRowCount(other.getRowCount());
+        }
+        if (other.hasRowSize()) {
+          setRowSize(other.getRowSize());
         }
         if (other.hasCumulativeCost()) {
           mergeCumulativeCost(other.getCumulativeCost());
@@ -2958,51 +3015,84 @@ public final class RelationProtos {
         return relationsBuilder_;
       }
 
-      // optional double rowCount = 3;
-      private double rowCount_ ;
+      // optional int64 rowCount = 3;
+      private long rowCount_ ;
       /**
-       * <code>optional double rowCount = 3;</code>
+       * <code>optional int64 rowCount = 3;</code>
        */
       public boolean hasRowCount() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional double rowCount = 3;</code>
+       * <code>optional int64 rowCount = 3;</code>
        */
-      public double getRowCount() {
+      public long getRowCount() {
         return rowCount_;
       }
       /**
-       * <code>optional double rowCount = 3;</code>
+       * <code>optional int64 rowCount = 3;</code>
        */
-      public Builder setRowCount(double value) {
+      public Builder setRowCount(long value) {
         bitField0_ |= 0x00000004;
         rowCount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional double rowCount = 3;</code>
+       * <code>optional int64 rowCount = 3;</code>
        */
       public Builder clearRowCount() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        rowCount_ = 0D;
+        rowCount_ = 0L;
         onChanged();
         return this;
       }
 
-      // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;
+      // optional int64 rowSize = 4;
+      private long rowSize_ ;
+      /**
+       * <code>optional int64 rowSize = 4;</code>
+       */
+      public boolean hasRowSize() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int64 rowSize = 4;</code>
+       */
+      public long getRowSize() {
+        return rowSize_;
+      }
+      /**
+       * <code>optional int64 rowSize = 4;</code>
+       */
+      public Builder setRowSize(long value) {
+        bitField0_ |= 0x00000008;
+        rowSize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 rowSize = 4;</code>
+       */
+      public Builder clearRowSize() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        rowSize_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;
       private edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost cumulativeCost_ = edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder> cumulativeCostBuilder_;
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public boolean hasCumulativeCost() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost getCumulativeCost() {
         if (cumulativeCostBuilder_ == null) {
@@ -3012,7 +3102,7 @@ public final class RelationProtos {
         }
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public Builder setCumulativeCost(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost value) {
         if (cumulativeCostBuilder_ == null) {
@@ -3024,11 +3114,11 @@ public final class RelationProtos {
         } else {
           cumulativeCostBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public Builder setCumulativeCost(
           edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder builderForValue) {
@@ -3038,15 +3128,15 @@ public final class RelationProtos {
         } else {
           cumulativeCostBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public Builder mergeCumulativeCost(edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost value) {
         if (cumulativeCostBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
               cumulativeCost_ != edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.getDefaultInstance()) {
             cumulativeCost_ =
               edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.newBuilder(cumulativeCost_).mergeFrom(value).buildPartial();
@@ -3057,11 +3147,11 @@ public final class RelationProtos {
         } else {
           cumulativeCostBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         return this;
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public Builder clearCumulativeCost() {
         if (cumulativeCostBuilder_ == null) {
@@ -3070,19 +3160,19 @@ public final class RelationProtos {
         } else {
           cumulativeCostBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder getCumulativeCostBuilder() {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return getCumulativeCostFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       public edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder getCumulativeCostOrBuilder() {
         if (cumulativeCostBuilder_ != null) {
@@ -3092,7 +3182,7 @@ public final class RelationProtos {
         }
       }
       /**
-       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 4;</code>
+       * <code>optional .qpe.proto.Relation.CumulativeCost cumulativeCost = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCost.Builder, edu.ucr.cs.qpe.RelationProtos.Relation.CumulativeCostOrBuilder> 
@@ -3108,35 +3198,35 @@ public final class RelationProtos {
         return cumulativeCostBuilder_;
       }
 
-      // optional int64 result = 5;
-      private long result_ ;
+      // optional int32 result = 6;
+      private int result_ ;
       /**
-       * <code>optional int64 result = 5;</code>
+       * <code>optional int32 result = 6;</code>
        */
       public boolean hasResult() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional int64 result = 5;</code>
+       * <code>optional int32 result = 6;</code>
        */
-      public long getResult() {
+      public int getResult() {
         return result_;
       }
       /**
-       * <code>optional int64 result = 5;</code>
+       * <code>optional int32 result = 6;</code>
        */
-      public Builder setResult(long value) {
-        bitField0_ |= 0x00000010;
+      public Builder setResult(int value) {
+        bitField0_ |= 0x00000020;
         result_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 result = 5;</code>
+       * <code>optional int32 result = 6;</code>
        */
       public Builder clearResult() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        result_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        result_ = 0;
         onChanged();
         return this;
       }
@@ -3171,80 +3261,81 @@ public final class RelationProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016relation.proto\022\tqpe.proto\"\307\026\n\010Relation" +
+      "\n\016relation.proto\022\tqpe.proto\"\343\026\n\010Relation" +
       "\022&\n\002op\030\001 \001(\0162\032.qpe.proto.Relation.OpCode" +
       "\022&\n\trelations\030\002 \003(\0132\023.qpe.proto.Relation" +
-      "\022\020\n\010rowCount\030\003 \001(\001\022:\n\016cumulativeCost\030\004 \001" +
-      "(\0132\".qpe.proto.Relation.CumulativeCost\022\016" +
-      "\n\006result\030\005 \001(\003\0327\n\016CumulativeCost\022\014\n\004rows" +
-      "\030\001 \001(\001\022\013\n\003cpu\030\002 \001(\001\022\n\n\002io\030\003 \001(\001\"\323\024\n\006OpCo" +
-      "de\022\025\n\021AbstractConverter\020\000\022\023\n\017AbstractRel" +
-      "Node\020\001\022\r\n\tAggregate\020\002\022\025\n\021AltTraitConvert" +
-      "er\020\003\022\025\n\021BindableAggregate\020\004\022\022\n\016BindableF",
-      "ilter\020\005\022\020\n\014BindableJoin\020\006\022\023\n\017BindablePro" +
-      "ject\020\007\022\017\n\013BindableRel\020\010\022\020\n\014BindableSort\020" +
-      "\t\022\025\n\021BindableTableScan\020\n\022\021\n\rBindableUnio" +
-      "n\020\013\022\022\n\016BindableValues\020\014\022\022\n\016BindableWindo" +
-      "w\020\r\022\t\n\005BiRel\020\016\022\r\n\tBridgeRel\020\017\022\010\n\004Calc\020\020\022" +
-      "\007\n\003Chi\020\021\022\013\n\007Collect\020\022\022\r\n\tConverter\020\023\022\021\n\r" +
-      "ConverterImpl\020\024\022\r\n\tCorrelate\020\025\022\t\n\005Delta\020" +
-      "\026\022\027\n\023ElasticsearchFilter\020\027\022\030\n\024Elasticsea" +
-      "rchProject\020\030\022\024\n\020ElasticsearchRel\020\031\022\025\n\021El" +
-      "asticsearchSort\020\032\022\032\n\026ElasticsearchTableS",
-      "can\020\033\022&\n\"ElasticsearchToEnumerableConver" +
-      "ter\020\034\022\027\n\023EnumerableAggregate\020\035\022\026\n\022Enumer" +
-      "ableBindable\020\036\022\022\n\016EnumerableCalc\020\037\022\025\n\021En" +
-      "umerableCollect\020 \022\027\n\023EnumerableCorrelate" +
-      "\020!\022\024\n\020EnumerableFilter\020\"\022\033\n\027EnumerableIn" +
-      "terpretable\020#\022\031\n\025EnumerableInterpreter\020$" +
-      "\022\027\n\023EnumerableIntersect\020%\022\022\n\016EnumerableJ" +
-      "oin\020&\022\023\n\017EnumerableLimit\020\'\022\027\n\023Enumerable" +
-      "MergeJoin\020(\022\023\n\017EnumerableMinus\020)\022\025\n\021Enum" +
-      "erableProject\020*\022\021\n\rEnumerableRel\020+\022\026\n\022En",
-      "umerableSemiJoin\020,\022\022\n\016EnumerableSort\020-\022\037" +
-      "\n\033EnumerableTableFunctionScan\020.\022\031\n\025Enume" +
-      "rableTableModify\020/\022\027\n\023EnumerableTableSca" +
-      "n\0200\022\027\n\023EnumerableThetaJoin\0201\022\027\n\023Enumerab" +
-      "leUncollect\0202\022\023\n\017EnumerableUnion\0203\022\024\n\020En" +
-      "umerableValues\0204\022\024\n\020EnumerableWindow\0205\022\014" +
-      "\n\010EquiJoin\0206\022\014\n\010Exchange\0207\022\n\n\006Filter\0208\022\n" +
-      "\n\006FooRel\0209\022\020\n\014HepRelVertex\020:\022\024\n\020Intermed" +
-      "iateNode\020;\022\032\n\026InterpretableConverter\020<\022\024" +
-      "\n\020InterpretableRel\020=\022\r\n\tIntersect\020>\022\021\n\rI",
-      "terMergedRel\020?\022\021\n\rIterSingleRel\020@\022\021\n\rJdb" +
-      "cAggregate\020A\022\014\n\010JdbcCalc\020B\022\016\n\nJdbcFilter" +
-      "\020C\022\021\n\rJdbcIntersect\020D\022\014\n\010JdbcJoin\020E\022\r\n\tJ" +
-      "dbcMinus\020F\022\017\n\013JdbcProject\020G\022\013\n\007JdbcRel\020H" +
-      "\022\014\n\010JdbcSort\020I\022\023\n\017JdbcTableModify\020J\022\021\n\rJ" +
-      "dbcTableScan\020K\022\035\n\031JdbcToEnumerableConver" +
-      "ter\020L\022\r\n\tJdbcUnion\020M\022\016\n\nJdbcValues\020N\022\010\n\004" +
-      "Join\020O\022\013\n\007LeafRel\020P\022\024\n\020LogicalAggregate\020" +
-      "Q\022\017\n\013LogicalCalc\020R\022\016\n\nLogicalChi\020S\022\024\n\020Lo" +
-      "gicalCorrelate\020T\022\020\n\014LogicalDelta\020U\022\023\n\017Lo",
-      "gicalExchange\020V\022\021\n\rLogicalFilter\020W\022\024\n\020Lo" +
-      "gicalIntersect\020X\022\017\n\013LogicalJoin\020Y\022\020\n\014Log" +
-      "icalMatch\020Z\022\020\n\014LogicalMinus\020[\022\022\n\016Logical" +
-      "Project\020\\\022\017\n\013LogicalSort\020]\022\034\n\030LogicalTab" +
-      "leFunctionScan\020^\022\026\n\022LogicalTableModify\020_" +
-      "\022\024\n\020LogicalTableScan\020`\022\020\n\014LogicalUnion\020a" +
-      "\022\021\n\rLogicalValues\020b\022\021\n\rLogicalWindow\020c\022\t" +
-      "\n\005Match\020d\022\t\n\005Minus\020e\022\025\n\021MockJdbcTableSca" +
-      "n\020f\022\r\n\tMultiJoin\020g\022\t\n\005MyRel\020h\022\021\n\rNoneCon" +
-      "verter\020i\022\017\n\013NoneLeafRel\020j\022\021\n\rNoneSingleR",
-      "el\020k\022\010\n\004Phys\020l\022\013\n\007PhysAgg\020m\022\020\n\014PhysicalS" +
-      "ort\020n\022\017\n\013PhysLeafRel\020o\022\014\n\010PhysProj\020p\022\021\n\r" +
-      "PhysSingleRel\020q\022\014\n\010PhysSort\020r\022\r\n\tPhysTab" +
-      "le\020s\022\033\n\027PhysToIteratorConverter\020t\022\013\n\007Pro" +
-      "ject\020u\022\023\n\017RandomSingleRel\020v\022\r\n\tRelSubset" +
-      "\020w\022\021\n\rRootSingleRel\020x\022\n\n\006Sample\020y\022\025\n\021Sel" +
-      "fFlatteningRel\020z\022\014\n\010SemiJoin\020{\022\t\n\005SetOp\020" +
-      "|\022\r\n\tSingleRel\020}\022\024\n\020SingletonLeafRel\020~\022\010" +
-      "\n\004Sort\020\177\022\021\n\014SortExchange\020\200\001\022\022\n\rStarTable" +
-      "Scan\020\201\001\022\026\n\021TableFunctionScan\020\202\001\022\020\n\013Table",
-      "Modify\020\203\001\022\016\n\tTableScan\020\204\001\022\020\n\013TestLeafRel" +
-      "\020\205\001\022\022\n\rTestSingleRel\020\206\001\022\016\n\tUncollect\020\207\001\022" +
-      "\n\n\005Union\020\210\001\022\013\n\006Values\020\211\001\022\013\n\006Window\020\212\001B \n" +
-      "\016edu.ucr.cs.qpeB\016RelationProtos"
+      "\022\020\n\010rowCount\030\003 \001(\003\022\017\n\007rowSize\030\004 \001(\003\022:\n\016c" +
+      "umulativeCost\030\005 \001(\0132\".qpe.proto.Relation" +
+      ".CumulativeCost\022\016\n\006result\030\006 \001(\005\0327\n\016Cumul" +
+      "ativeCost\022\014\n\004rows\030\001 \001(\001\022\013\n\003cpu\030\002 \001(\001\022\n\n\002" +
+      "io\030\003 \001(\001\"\336\024\n\006OpCode\022\025\n\021AbstractConverter" +
+      "\020\000\022\023\n\017AbstractRelNode\020\001\022\r\n\tAggregate\020\002\022\025" +
+      "\n\021AltTraitConverter\020\003\022\025\n\021BindableAggrega",
+      "te\020\004\022\022\n\016BindableFilter\020\005\022\020\n\014BindableJoin" +
+      "\020\006\022\023\n\017BindableProject\020\007\022\017\n\013BindableRel\020\010" +
+      "\022\020\n\014BindableSort\020\t\022\025\n\021BindableTableScan\020" +
+      "\n\022\021\n\rBindableUnion\020\013\022\022\n\016BindableValues\020\014" +
+      "\022\022\n\016BindableWindow\020\r\022\t\n\005BiRel\020\016\022\r\n\tBridg" +
+      "eRel\020\017\022\010\n\004Calc\020\020\022\007\n\003Chi\020\021\022\013\n\007Collect\020\022\022\r" +
+      "\n\tConverter\020\023\022\021\n\rConverterImpl\020\024\022\r\n\tCorr" +
+      "elate\020\025\022\t\n\005Delta\020\026\022\027\n\023ElasticsearchFilte" +
+      "r\020\027\022\030\n\024ElasticsearchProject\020\030\022\024\n\020Elastic" +
+      "searchRel\020\031\022\025\n\021ElasticsearchSort\020\032\022\032\n\026El",
+      "asticsearchTableScan\020\033\022&\n\"ElasticsearchT" +
+      "oEnumerableConverter\020\034\022\027\n\023EnumerableAggr" +
+      "egate\020\035\022\026\n\022EnumerableBindable\020\036\022\022\n\016Enume" +
+      "rableCalc\020\037\022\025\n\021EnumerableCollect\020 \022\027\n\023En" +
+      "umerableCorrelate\020!\022\024\n\020EnumerableFilter\020" +
+      "\"\022\033\n\027EnumerableInterpretable\020#\022\031\n\025Enumer" +
+      "ableInterpreter\020$\022\027\n\023EnumerableIntersect" +
+      "\020%\022\022\n\016EnumerableJoin\020&\022\023\n\017EnumerableLimi" +
+      "t\020\'\022\027\n\023EnumerableMergeJoin\020(\022\023\n\017Enumerab" +
+      "leMinus\020)\022\025\n\021EnumerableProject\020*\022\021\n\rEnum",
+      "erableRel\020+\022\026\n\022EnumerableSemiJoin\020,\022\022\n\016E" +
+      "numerableSort\020-\022\037\n\033EnumerableTableFuncti" +
+      "onScan\020.\022\031\n\025EnumerableTableModify\020/\022\027\n\023E" +
+      "numerableTableScan\0200\022\027\n\023EnumerableThetaJ" +
+      "oin\0201\022\027\n\023EnumerableUncollect\0202\022\023\n\017Enumer" +
+      "ableUnion\0203\022\024\n\020EnumerableValues\0204\022\024\n\020Enu" +
+      "merableWindow\0205\022\014\n\010EquiJoin\0206\022\014\n\010Exchang" +
+      "e\0207\022\n\n\006Filter\0208\022\n\n\006FooRel\0209\022\020\n\014HepRelVer" +
+      "tex\020:\022\024\n\020IntermediateNode\020;\022\032\n\026Interpret" +
+      "ableConverter\020<\022\024\n\020InterpretableRel\020=\022\r\n",
+      "\tIntersect\020>\022\021\n\rIterMergedRel\020?\022\021\n\rIterS" +
+      "ingleRel\020@\022\021\n\rJdbcAggregate\020A\022\014\n\010JdbcCal" +
+      "c\020B\022\016\n\nJdbcFilter\020C\022\021\n\rJdbcIntersect\020D\022\014" +
+      "\n\010JdbcJoin\020E\022\r\n\tJdbcMinus\020F\022\017\n\013JdbcProje" +
+      "ct\020G\022\013\n\007JdbcRel\020H\022\014\n\010JdbcSort\020I\022\023\n\017JdbcT" +
+      "ableModify\020J\022\021\n\rJdbcTableScan\020K\022\035\n\031JdbcT" +
+      "oEnumerableConverter\020L\022\r\n\tJdbcUnion\020M\022\016\n" +
+      "\nJdbcValues\020N\022\010\n\004Join\020O\022\013\n\007LeafRel\020P\022\024\n\020" +
+      "LogicalAggregate\020Q\022\017\n\013LogicalCalc\020R\022\016\n\nL" +
+      "ogicalChi\020S\022\024\n\020LogicalCorrelate\020T\022\020\n\014Log",
+      "icalDelta\020U\022\023\n\017LogicalExchange\020V\022\021\n\rLogi" +
+      "calFilter\020W\022\024\n\020LogicalIntersect\020X\022\017\n\013Log" +
+      "icalJoin\020Y\022\020\n\014LogicalMatch\020Z\022\020\n\014LogicalM" +
+      "inus\020[\022\022\n\016LogicalProject\020\\\022\017\n\013LogicalSor" +
+      "t\020]\022\034\n\030LogicalTableFunctionScan\020^\022\026\n\022Log" +
+      "icalTableModify\020_\022\024\n\020LogicalTableScan\020`\022" +
+      "\020\n\014LogicalUnion\020a\022\021\n\rLogicalValues\020b\022\021\n\r" +
+      "LogicalWindow\020c\022\t\n\005Match\020d\022\t\n\005Minus\020e\022\025\n" +
+      "\021MockJdbcTableScan\020f\022\r\n\tMultiJoin\020g\022\t\n\005M" +
+      "yRel\020h\022\021\n\rNoneConverter\020i\022\017\n\013NoneLeafRel",
+      "\020j\022\021\n\rNoneSingleRel\020k\022\010\n\004Phys\020l\022\013\n\007PhysA" +
+      "gg\020m\022\020\n\014PhysicalSort\020n\022\017\n\013PhysLeafRel\020o\022" +
+      "\014\n\010PhysProj\020p\022\021\n\rPhysSingleRel\020q\022\014\n\010Phys" +
+      "Sort\020r\022\r\n\tPhysTable\020s\022\033\n\027PhysToIteratorC" +
+      "onverter\020t\022\013\n\007Project\020u\022\023\n\017RandomSingleR" +
+      "el\020v\022\r\n\tRelSubset\020w\022\021\n\rRootSingleRel\020x\022\n" +
+      "\n\006Sample\020y\022\025\n\021SelfFlatteningRel\020z\022\014\n\010Sem" +
+      "iJoin\020{\022\t\n\005SetOp\020|\022\r\n\tSingleRel\020}\022\024\n\020Sin" +
+      "gletonLeafRel\020~\022\010\n\004Sort\020\177\022\021\n\014SortExchang" +
+      "e\020\200\001\022\022\n\rStarTableScan\020\201\001\022\026\n\021TableFunctio",
+      "nScan\020\202\001\022\020\n\013TableModify\020\203\001\022\016\n\tTableScan\020" +
+      "\204\001\022\020\n\013TestLeafRel\020\205\001\022\022\n\rTestSingleRel\020\206\001" +
+      "\022\016\n\tUncollect\020\207\001\022\n\n\005Union\020\210\001\022\013\n\006Values\020\211" +
+      "\001\022\013\n\006Window\020\212\001\022\t\n\004NONE\020\213\001B \n\016edu.ucr.cs." +
+      "qpeB\016RelationProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3256,7 +3347,7 @@ public final class RelationProtos {
           internal_static_qpe_proto_Relation_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_qpe_proto_Relation_descriptor,
-              new java.lang.String[] { "Op", "Relations", "RowCount", "CumulativeCost", "Result", });
+              new java.lang.String[] { "Op", "Relations", "RowCount", "RowSize", "CumulativeCost", "Result", });
           internal_static_qpe_proto_Relation_CumulativeCost_descriptor =
             internal_static_qpe_proto_Relation_descriptor.getNestedTypes().get(0);
           internal_static_qpe_proto_Relation_CumulativeCost_fieldAccessorTable = new

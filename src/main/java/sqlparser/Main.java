@@ -32,12 +32,19 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		String filename = args[0];
+		String queryName = args[1];
 
+		String result = "122222221112111122111221";
 		String query = FileUtils.readFileToString(new File(filename));
 		query = query.trim();
 		query = query.substring(0, query.length() - 1);
+//		System.out.println(query);
+		String[] temp = queryName.split("_");
+		int tempSize = temp.length;
+		int queryNumber = Integer.parseInt(temp[tempSize - 1]);
+		int bestIndex = Integer.parseInt(result.substring(queryNumber - 1, queryNumber));
 		Parser parser = new Parser();
-		String json = parser.toJsonString(query, 1);
+		String json = parser.toJsonString(query, bestIndex);
 		System.out.println(json);
 		
 //		Planner planner = parser.getPlanner();
